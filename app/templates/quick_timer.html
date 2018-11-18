@@ -1,0 +1,40 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<html>
+<head>
+    <title>timer</title>
+</head>
+<body>
+
+<p id="timer">''</p>
+
+<script>
+function seconds() {
+let seconds = 60;
+function secondsTimer() {
+document.getElementById("timer").innerHTML = minutes.toString() + ":" +  seconds.toString();
+seconds--
+if (seconds == 0) {
+	clearInterval(secCounter);
+	}
+}
+let secCounter = setInterval(secondsTimer, 100);
+}
+
+let minutes = 99;
+function minTimer() {
+seconds();
+minutes--
+if (minutes == 0) {
+	clearInterval(minCounter);
+	}
+}
+minTimer();
+let minCounter = setInterval(minTimer, 6000);
+
+</script>
+</body>
+</html>
+{% endblock %}
