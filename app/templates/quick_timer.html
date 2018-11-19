@@ -2,16 +2,10 @@
 
 {% block content %}
 
-<html>
-<head>
-    <title>timer</title>
-</head>
-<body>
 <input id = "input" placeholder="Input time in 00:00:00 format"> </input>
 <button value = 'send' id = "submit" onclick="main()">Start Timer</button>
 
 <h1 class="text-white" id="timer"> </h1>
-
 <script>
 function addTime(userTime) {
     let userTimeInMilliseconds = (userTime.split(":")[0] * 3600000) + (userTime.split(":")[1] * 60000) + (userTime.split(":")[2] * 1000)
@@ -50,6 +44,4 @@ function main() {
     timer(stopTime)
 }
 </script>
-</body>
-</html>
 {% endblock %}

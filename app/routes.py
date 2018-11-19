@@ -9,3 +9,7 @@ def index():
 @app.route('/quick_timer')
 def quick_timer():
     return render_template('quick_timer.html')
+
+@app.route('/buttons')
+def buttons():
+    return render_template('buttons.html')
