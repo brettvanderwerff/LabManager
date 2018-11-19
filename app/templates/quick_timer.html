@@ -7,33 +7,48 @@
     <title>timer</title>
 </head>
 <body>
+<input id = "input" placeholder="Input time in 00:00:00 format"> </input>
+<button value = 'send' id = "submit" onclick="main()">Start Timer</button>
 
-<p id="timer">''</p>
+<h1 class="text-white" id="timer"> </h1>
 
 <script>
-function seconds() {
-let seconds = 60;
-function secondsTimer() {
-document.getElementById("timer").innerHTML = minutes.toString() + ":" +  seconds.toString();
-seconds--
-if (seconds == 0) {
-	clearInterval(secCounter);
-	}
-}
-let secCounter = setInterval(secondsTimer, 100);
+function addTime(userTime) {
+    let userTimeInMilliseconds = (userTime.split(":")[0] * 3600000) + (userTime.split(":")[1] * 60000) + (userTime.split(":")[2] * 1000)
+    return new Date(Date.now() + userTimeInMilliseconds)
+    }
+
+function millisecondsConversion(milliSeconds){
+    let hours = Math.floor(milliSeconds/3600000)
+    if (hours <= 9) {
+    hours = "0" + hours
+    }
+    let minutes = Math.floor((milliSeconds - (hours * 3600000))/ 60000)
+    if (minutes <= 9) {
+    minutes = "0" + minutes
+    }
+    let seconds = Math.floor(((milliSeconds - (hours * 3600000) - (minutes * 60000))/ 1000))
+    if (seconds <= 9) {
+    seconds = "0" + seconds
+    }
+    return hours + ":" + minutes + ":" + seconds
 }
 
-let minutes = 99;
-function minTimer() {
-seconds();
-minutes--
-if (minutes == 0) {
-	clearInterval(minCounter);
-	}
-}
-minTimer();
-let minCounter = setInterval(minTimer, 6000);
+function timer(stopTime) {
+    let timeDelta = stopTime - Date.now()
+    if (timeDelta <= 0) {
+    return
+    }
+    document.getElementById("timer").innerHTML = millisecondsConversion(timeDelta)
+    let t = setTimeout(function() {
+        timer(stopTime)}, 100)
+    }
 
+function main() {
+    let input = document.getElementById("input").value
+    let stopTime = addTime(input)
+    timer(stopTime)
+}
 </script>
 </body>
 </html>
