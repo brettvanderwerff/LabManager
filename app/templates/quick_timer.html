@@ -2,11 +2,53 @@
 
 {% block content %}
 
-<input id = "input" placeholder="Input time in 00:00:00 format"> </input>
-<button value = 'send' id = "submit" onclick="main()">Start Timer</button>
+<style>
 
-<h1 class="text-white" id="timer"> </h1>
+.grid-container {
+  display: grid;
+  grid-template-columns: auto auto auto;
+  background-color: #ebebeb;
+}
+
+.button-wide {
+  grid-column-start: 1;
+  grid-column-end: 4;
+}
+
+#display {
+  text-align: center;
+  grid-column-start: 1;
+  grid-column-end: 4;
+  font-size: 30px;
+}
+
+</style>
+
 <script>
+var clicks = 7
+function inputNumber(number) {
+
+    if (clicks == -1 ){
+    return
+    }
+
+    if (clicks == 5 || clicks == 2) {
+        clicks--
+        }
+
+    var display_text = document.getElementById("display").innerHTML
+    var index = clicks
+    display_text = display_text.substr(0,index) + number + display_text.substr(index + 1)
+    document.getElementById("display").innerHTML = display_text
+    clicks--
+}
+
+function clearDisplay() {
+    console.log(clicks)
+    clicks = 7
+    document.getElementById("display").innerHTML = "00:00:00"
+}
+
 function addTime(userTime) {
     let userTimeInMilliseconds = (userTime.split(":")[0] * 3600000) + (userTime.split(":")[1] * 60000) + (userTime.split(":")[2] * 1000)
     return new Date(Date.now() + userTimeInMilliseconds)
@@ -33,15 +75,39 @@ function timer(stopTime) {
     if (timeDelta <= 0) {
     return
     }
-    document.getElementById("timer").innerHTML = millisecondsConversion(timeDelta)
+    document.getElementById("display").innerHTML = millisecondsConversion(timeDelta)
     let t = setTimeout(function() {
         timer(stopTime)}, 100)
     }
 
-function main() {
-    let input = document.getElementById("input").value
+function startTimer() {
+    let input = document.getElementById("display").innerHTML
     let stopTime = addTime(input)
     timer(stopTime)
 }
 </script>
+
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-sm-4" style="background: none;"> </div>
+        <div class="col-sm-4" style="background: none;">
+            <div class="grid-container">
+                  <div id="display">00:00:00</div>
+                  <button id="button-7" onclick="inputNumber(7)">7</button>
+                  <button id="button-8" onclick="inputNumber(8)">8</button>
+                  <button id="button-9" onclick="inputNumber(9)">9</button>
+                  <button id="button-0" onclick="inputNumber(4)">4</button>
+                  <button id="button-5" onclick="inputNumber(5)">5</button>
+                  <button id="button-6" onclick="inputNumber(6)">6</button>
+                  <button id="button-1" onclick="inputNumber(1)">1</button>
+                  <button id="button-2" onclick="inputNumber(2)">2</button>
+                  <button id="button-3" onclick="inputNumber(3)">3</button>
+                  <button class="button-wide" id="button-0" onclick="inputNumber(0)">0</button>
+                  <button class="button-wide" id="start" onclick="startTimer()">Start</button>
+                  <button class="button-wide" id="clear" onclick="clearDisplay()">Clear</button>
+        <div class="col-sm-4" style="background: none;"> </div>
+    </div>
+        </div>
+    </div>
+</div>
 {% endblock %}
