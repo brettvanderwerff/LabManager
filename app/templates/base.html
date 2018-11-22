@@ -11,6 +11,11 @@ header,
 .view {
   height: 100%;
 }
+
+body {
+    background-image: url('./static/images/background.jpg'); background-repeat: no-repeat; background-size: cover; background-position: center center;
+}
+
 .jumbotron {
     background: none
 }
@@ -165,8 +170,6 @@ header,
     </ul>
   </div>
 </nav>
-<div class="view" style="background-image: url('./static/images/background.jpg'); background-repeat: no-repeat; background-size: cover; background-position: center center;">
 {% block content %} {% endblock %}
-</div>
 </body>
 </html>
