@@ -50,10 +50,13 @@ function inputNumber(number) {
 function clearDisplay() {
 
     if (running == true) {
+    alarm.pause()
+    alarm.currentTime = 0
     return
     }
     entered_digits = 0
     document.getElementById("display").innerHTML = "00:00:00"
+
 }
 
 function addTime(userTime) {
@@ -100,6 +103,9 @@ function startTimer() {
 
 function stopTimer() {
     running = false
+    alarm.pause()
+    alarm.currentTime = 0
+
 }
 </script>
 
