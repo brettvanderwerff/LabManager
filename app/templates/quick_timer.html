@@ -22,6 +22,17 @@
   font-size: 30px;
 }
 
+#timer-name {
+  text-align: center;
+  grid-column-start: 1;
+  grid-column-end: 4;
+  font-size: 30px;
+}
+
+#name-submit {
+  grid-column-start: 1;
+  grid-column-end: 4;
+}
 
 </style>
 
@@ -108,6 +119,13 @@ function stopTimer() {
     alarm.currentTime = 0
 
 }
+
+function updateName() {
+    var name = document.getElementById("name-text").value
+    console.log(name)
+    document.getElementById("timer-name").innerHTML = name
+
+}
 </script>
 
 <div class="container-fluid">
@@ -115,6 +133,7 @@ function stopTimer() {
         <div class="col-sm-4" style="background: none;"> </div>
         <div class="col-sm-4" style="background: none;">
             <div class="grid-container">
+                  <div id="timer-name">Timer Name</div>
                   <div id="display">00:00:00</div>
                   <button id="button-7" onclick="inputNumber(7)">7</button>
                   <button id="button-8" onclick="inputNumber(8)">8</button>
@@ -125,10 +144,15 @@ function stopTimer() {
                   <button id="button-1" onclick="inputNumber(1)">1</button>
                   <button id="button-2" onclick="inputNumber(2)">2</button>
                   <button id="button-3" onclick="inputNumber(3)">3</button>
-                  <button class="button-wide" id="button-0" onclick="inputNumber(0)">0</button>
-                  <button class="button-wide" id="start" onclick="startTimer()">Start</button>
-                  <button class="button-wide" id="clear" onclick="clearDisplay()">Clear</button>
+                  <button id="button-0" onclick="inputNumber(0)">0</button>
+                  <button id="start" onclick="startTimer()">Start</button>
+
                   <button class="button-wide" id="stop" onclick="stopTimer()">Stop</button>
+                    <form id="name-submit">
+                    <input id="name-text" type="text" name="firstname" value="Enter your timer name here...">
+                </form>
+                <button id="'submit-button" onclick="updateName()">Enter a name</button>
+
 
         <div class="col-sm-4" style="background: none;"> </div>
     </div>
