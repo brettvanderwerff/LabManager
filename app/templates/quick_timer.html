@@ -6,11 +6,11 @@
 
 .grid-container {
   display: grid;
-  grid-template-columns: auto auto auto;
+  grid-template-columns auto auto auto;
   background-color: #ebebeb;
 }
 
-.button-wide {
+.wide-item {
   grid-column-start: 1;
   grid-column-end: 4;
 }
@@ -29,10 +29,18 @@
   font-size: 30px;
 }
 
-#name-submit {
-  grid-column-start: 1;
-  grid-column-end: 4;
+.name-form {
+	display: grid;
+	grid-template-columns: auto;
+	grid-gap: .8em;
+	background: #ebebeb;
+	padding: 1.2em;
 }
+
+
+}
+
+
 
 </style>
 
@@ -126,36 +134,40 @@ function updateName() {
     document.getElementById("timer-name").innerHTML = name
 
 }
+
+
 </script>
 
 <div class="container-fluid">
     <div class="row mt-5">
-        <div class="col-sm-4" style="background: none;"> </div>
+        <div class="col-sm-4" style="background: none;"></div>
         <div class="col-sm-4" style="background: none;">
             <div class="grid-container">
-                  <div id="timer-name">Timer Name</div>
-                  <div id="display">00:00:00</div>
-                  <button id="button-7" onclick="inputNumber(7)">7</button>
-                  <button id="button-8" onclick="inputNumber(8)">8</button>
-                  <button id="button-9" onclick="inputNumber(9)">9</button>
-                  <button id="button-4" onclick="inputNumber(4)">4</button>
-                  <button id="button-5" onclick="inputNumber(5)">5</button>
-                  <button id="button-6" onclick="inputNumber(6)">6</button>
-                  <button id="button-1" onclick="inputNumber(1)">1</button>
-                  <button id="button-2" onclick="inputNumber(2)">2</button>
-                  <button id="button-3" onclick="inputNumber(3)">3</button>
-                  <button id="button-0" onclick="inputNumber(0)">0</button>
-                  <button id="start" onclick="startTimer()">Start</button>
+                <div id="timer-name">Timer Name</div>
+                <div id="display">00:00:00</div>
+                <button id="button-7" onclick="inputNumber(7)">7</button>
+                <button id="button-8" onclick="inputNumber(8)">8</button>
+                <button id="button-9" onclick="inputNumber(9)">9</button>
+                <button id="button-4" onclick="inputNumber(4)">4</button>
+                <button id="button-5" onclick="inputNumber(5)">5</button>
+                <button id="button-6" onclick="inputNumber(6)">6</button>
+                <button id="button-1" onclick="inputNumber(1)">1</button>
+                <button id="button-2" onclick="inputNumber(2)">2</button>
+                <button id="button-3" onclick="inputNumber(3)">3</button>
+                <button id="button-0" onclick="inputNumber(0)">0</button>
+                <button id="clear" onclick="clearDisplay()">Clear</button>
+                <button id="start" onclick="startTimer()">Start</button>
 
-                  <button class="button-wide" id="stop" onclick="stopTimer()">Stop</button>
-                    <form id="name-submit">
-                    <input id="name-text" type="text" name="firstname" value="Enter your timer name here...">
-                </form>
-                <button id="'submit-button" onclick="updateName()">Enter a name</button>
+                <button class="wide-item" id="stop" onclick="stopTimer()">Stop</button>
+                <div class="wide-item">
+                    <form class="name-form">
+                        <input id="name-text" type="text" value="Enter your timer name here...">
+                        <button type="button" id="'submit-button" onclick="updateName()">Submit Timer Name</button>
+                    </form>
+                </div>
 
-
-        <div class="col-sm-4" style="background: none;"> </div>
-    </div>
+                <div class="col-sm-4" style="background: none;"></div>
+            </div>
         </div>
     </div>
 </div>
