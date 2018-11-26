@@ -14,18 +14,20 @@ background-size: cover;
 }
 
 .jumbotron {
-background: none
+opacity: 0.9;
 }
 
 #timer-container {
   display: grid;
-  grid-template-columns auto auto auto;
+  grid-template-columns: 33.3% 33.3% 33.3%;
   background-color: #ebebeb;
+  border-radius: 7px 7px 7px 7px;
 }
 
 .wide-item {
   grid-column-start: 1;
   grid-column-end: 4;
+
 }
 
 #timer-display {
@@ -40,6 +42,7 @@ background: none
   grid-column-start: 1;
   grid-column-end: 4;
   font-size: 30px;
+
 }
 
 #name-form {
@@ -48,6 +51,8 @@ background: none
 	grid-gap: .8em;
 	background: #ebebeb;
 	padding: 1.2em;
+	border-radius: 0 0 7px 7px;
+
 }
 
 .navbar {

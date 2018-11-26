@@ -1,4 +1,86 @@
 {% extends "base.html" %}
 
 {% block content %}
+<div class="container">
+    <div class="row">
+        <div class="col-4 mt-5">
+        <div id="timer-container">
+            <div id="timer-name">Timer Name</div>
+            <div id="timer-display">00:00:00</div>
+            <button id="button-7" onclick="timer1.inputNumber(7)">7</button>
+            <button id="button-8" onclick="timer1.inputNumber(8)">8</button>
+            <button id="button-9" onclick="timer1.inputNumber(9)">9</button>
+            <button id="button-4" onclick="timer1.inputNumber(4)">4</button>
+            <button id="button-5" onclick="timer1.inputNumber(5)">5</button>
+            <button id="button-6" onclick="timer1.inputNumber(6)">6</button>
+            <button id="button-1" onclick="timer1.inputNumber(1)">1</button>
+            <button id="button-2" onclick="timer1.inputNumber(2)">2</button>
+            <button id="button-3" onclick="timer1.inputNumber(3)">3</button>
+            <button id="button-0" onclick="timer1.inputNumber(0)">0</button>
+            <button id="clear" onclick="timer1.clearDisplay()">Clear</button>
+            <button id="start" onclick="timer1.startTimer()">Start</button>
+            <button class="wide-item" id="stop" onclick="timer1.stopTimer()">Stop</button>
+            <div class="wide-item">
+                <form id="name-form">
+                    <input id="name-text" type="text" value="Enter your timer name here...">
+                    <button type="button" id="'submit-button" onclick="timer1.updateName()">Submit Timer Name
+                    </button>
+                </form>
+            </div>
+            </div>
+        </div>
+        <div class="col-4 mt-5">
+        <div id="timer-container">
+            <div id="timer-name">Timer Name</div>
+            <div id="timer-display">00:00:00</div>
+            <button id="button-7" onclick="timer1.inputNumber(7)">7</button>
+            <button id="button-8" onclick="timer1.inputNumber(8)">8</button>
+            <button id="button-9" onclick="timer1.inputNumber(9)">9</button>
+            <button id="button-4" onclick="timer1.inputNumber(4)">4</button>
+            <button id="button-5" onclick="timer1.inputNumber(5)">5</button>
+            <button id="button-6" onclick="timer1.inputNumber(6)">6</button>
+            <button id="button-1" onclick="timer1.inputNumber(1)">1</button>
+            <button id="button-2" onclick="timer1.inputNumber(2)">2</button>
+            <button id="button-3" onclick="timer1.inputNumber(3)">3</button>
+            <button id="button-0" onclick="timer1.inputNumber(0)">0</button>
+            <button id="clear" onclick="timer1.clearDisplay()">Clear</button>
+            <button id="start" onclick="timer1.startTimer()">Start</button>
+            <button class="wide-item" id="stop" onclick="timer1.stopTimer()">Stop</button>
+            <div class="wide-item">
+                <form id="name-form">
+                    <input id="name-text" type="text" value="Enter your timer name here...">
+                    <button type="button" id="'submit-button" onclick="timer1.updateName()">Submit Timer Name
+                    </button>
+                </form>
+            </div>
+            </div>
+        </div>
+        <div class="col-4 mt-5">
+        <div id="timer-container">
+            <div id="timer-name">Timer Name</div>
+            <div id="timer-display">00:00:00</div>
+            <button id="button-7" onclick="timer1.inputNumber(7)">7</button>
+            <button id="button-8" onclick="timer1.inputNumber(8)">8</button>
+            <button id="button-9" onclick="timer1.inputNumber(9)">9</button>
+            <button id="button-4" onclick="timer1.inputNumber(4)">4</button>
+            <button id="button-5" onclick="timer1.inputNumber(5)">5</button>
+            <button id="button-6" onclick="timer1.inputNumber(6)">6</button>
+            <button id="button-1" onclick="timer1.inputNumber(1)">1</button>
+            <button id="button-2" onclick="timer1.inputNumber(2)">2</button>
+            <button id="button-3" onclick="timer1.inputNumber(3)">3</button>
+            <button id="button-0" onclick="timer1.inputNumber(0)">0</button>
+            <button id="clear" onclick="timer1.clearDisplay()">Clear</button>
+            <button id="start" onclick="timer1.startTimer()">Start</button>
+            <button class="wide-item" id="stop" onclick="timer1.stopTimer()">Stop</button>
+            <div class="wide-item">
+                <form id="name-form">
+                    <input id="name-text" type="text" value="Enter your timer name here...">
+                    <button type="button" id="'submit-button" onclick="timer1.updateName()">Submit Timer Name
+                    </button>
+                </form>
+            </div>
+            </div>
+        </div>
+    </div>
+</div>
 {% endblock %}

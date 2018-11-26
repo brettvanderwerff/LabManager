@@ -1,60 +1,27 @@
 {% extends "base.html" %}
 
 {% block content %}
-
-<style>
-
-.grid-container {
-  display: grid;
-  grid-template-columns: auto auto auto;
-  background-color: #ebebeb;
-}
-
-.button-wide {
-  grid-column-start: 1;
-  grid-column-end: 4;
-}
-
-#display {
-  text-align: center;
-  grid-column-start: 1;
-  grid-column-end: 4;
-  font-size: 30px;
-  background: none;
-}
-
-
-</style>
-
-<div class="container-fluid">
-    <div class="row mt-5">
-        <div class="col-sm-4" style="background: none;"> </div>
-        <div class="col-sm-4" style="background: none;">
-            <div class="grid-container">
-                  <div id="display">How Many Timers Would You Like?</div>
-                  <button id="button-1">1</button>
-                  <button id="button-2">2</button>
-                  <button id="button-3">3</button>
-                  <button id="button-4">4</button>
-                  <button id="button-5">5</button>
-                  <button id="button-6">6</button>
-                  <button id="button-7">7</button>
-                  <button id="button-8">8</button>
-                  <button id="button-9">9</button>
-
-        <div class="col-sm-4" style="background: none;"> </div>
-    </div>
+<div class="container h-100">
+    <div class="row h-100 justify-content-center align-items-center">
+        <div class="col-7">
+            <div class="jumbotron">
+                <h2 class="text-black">How many timers do you need?</h2>
+                <p class="lead">
+                <div class="dropdown">
+                    <button class="btn btn-primary dropdown-toggle" type="button" id="dropdownMenuButton"
+                            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        Select Number
+                    </button>
+                    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                        <a class="dropdown-item" href="/timer_array/1">1</a>
+                        <a class="dropdown-item" href="/timer_array/2">2</a>
+                        <a class="dropdown-item" href="/timer_array/3">3</a>
+                    </div>
+                </div>
+                </p>
+            </div>
         </div>
     </div>
 </div>
-<div class="dropdown">
-  <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-    Dropdown button
-  </button>
-  <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-    <a class="dropdown-item" href="#">Action</a>
-    <a class="dropdown-item" href="#">Another action</a>
-    <a class="dropdown-item" href="#">Something else here</a>
-  </div>
-</div>
 {% endblock %}
+
