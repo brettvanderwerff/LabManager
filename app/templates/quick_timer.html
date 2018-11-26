@@ -2,171 +2,135 @@
 
 {% block content %}
 
-<style>
-
-.grid-container {
-  display: grid;
-  grid-template-columns auto auto auto;
-  background-color: #ebebeb;
-}
-
-.wide-item {
-  grid-column-start: 1;
-  grid-column-end: 4;
-}
-
-#display {
-  text-align: center;
-  grid-column-start: 1;
-  grid-column-end: 4;
-  font-size: 30px;
-}
-
-#timer-name {
-  text-align: center;
-  grid-column-start: 1;
-  grid-column-end: 4;
-  font-size: 30px;
-}
-
-.name-form {
-	display: grid;
-	grid-template-columns: auto;
-	grid-gap: .8em;
-	background: #ebebeb;
-	padding: 1.2em;
-}
-
-
-}
-
-
-
-</style>
-
 <script>
-var running = false
-var entered_digits = 0
-var alarm = new Audio("/static/audio/alarm.mp3")
 
-function inputNumber(number) {
+function createTimer() {
+    this.running = false
+    this.entered_digits = 0
+    this.alarm = new Audio("/static/audio/alarm.mp3")
+    this.i = 1
 
-    if (running == true) {
-    return
-    }
+    this.inputNumber = function(number) {
+        if (this.running == true) {
+            return
+        }
 
-    if (entered_digits == 6 ){
-    return
-    }
+        if (this.entered_digits == 6 ){
+            return
+        }
 
-    var display_text = document.getElementById("display").innerHTML
-    var display_without_colon = display_text.substring(0,2) + display_text.substring(3,5) + display_text.substring(6,8) + number
-    var display_trimmed = display_without_colon.substring(1,7)
-    var display_with_colon = display_trimmed.substring(0,2) + ":" + display_trimmed.substring(2,4) + ":" +  display_trimmed.substring(4,6)
-    document.getElementById("display").innerHTML = display_with_colon
-    entered_digits++
-}
+        let display_text = document.getElementById("timer-display").innerHTML
+        let display_without_colon = display_text.substring(0,2) + display_text.substring(3,5) + display_text.substring(6,8) + number
+        let display_trimmed = display_without_colon.substring(1,7)
+        let display_with_colon = display_trimmed.substring(0,2) + ":" + display_trimmed.substring(2,4) + ":" +  display_trimmed.substring(4,6)
+        document.getElementById("timer-display").innerHTML = display_with_colon
+        this.entered_digits++
+        }
 
-function clearDisplay() {
+    this.clearDisplay = function() {
 
-    if (running == true) {
-    alarm.pause()
-    alarm.currentTime = 0
-    return
-    }
-    entered_digits = 0
-    document.getElementById("display").innerHTML = "00:00:00"
+        if (this.running == true) {
+            this.alarm.pause()
+            this.alarm.currentTime = 0
+            return
+        }
+        this.entered_digits = 0
+        document.getElementById("timer-display").innerHTML = "00:00:00"
 
-}
+        }
 
-function addTime(userTime) {
-    let userTimeInMilliseconds = (userTime.split(":")[0] * 3600000) + (userTime.split(":")[1] * 60000) + (userTime.split(":")[2] * 1000)
-    return new Date(Date.now() + userTimeInMilliseconds)
-    }
+    this.addTime = function(userTime) {
+        let userTimeInMilliseconds = (userTime.split(":")[0] * 3600000) + (userTime.split(":")[1] * 60000) + (userTime.split(":")[2] * 1000)
+        return new Date(Date.now() + userTimeInMilliseconds)
+        }
 
-function millisecondsConversion(milliSeconds){
-    let hours = Math.floor(milliSeconds/3600000)
-    if (hours <= 9) {
-    hours = "0" + hours
-    }
-    let minutes = Math.floor((milliSeconds - (hours * 3600000))/ 60000)
-    if (minutes <= 9) {
-    minutes = "0" + minutes
-    }
-    let seconds = Math.floor(((milliSeconds - (hours * 3600000) - (minutes * 60000))/ 1000))
-    if (seconds <= 9) {
-    seconds = "0" + seconds
-    }
-    return hours + ":" + minutes + ":" + seconds
-}
+    this.millisecondsConversion = function(milliSeconds) {
+        let hours = Math.floor(milliSeconds/3600000)
+        if (hours <= 9) {
+            hours = "0" + hours
+        }
+        let minutes = Math.floor((milliSeconds - (hours * 3600000))/ 60000)
+        if (minutes <= 9) {
+            minutes = "0" + minutes
+        }
+        let seconds = Math.floor(((milliSeconds - (hours * 3600000) - (minutes * 60000))/ 1000))
+        if (seconds <= 9) {
+            seconds = "0" + seconds
+        }
+        return hours + ":" + minutes + ":" + seconds
+        }
 
-function timer(stopTime) {
-    if (running == false) {
+
+
+  this.timerRun = function(stopTime) {
+    if (this.running == false) {
     return
     }
     let timeDelta = stopTime - Date.now()
     if (timeDelta <= 0) {
-    alarm.play()
+    this.alarm.play()
     return
     }
-    document.getElementById("display").innerHTML = millisecondsConversion(timeDelta)
-    let t = setTimeout(function() {
-        timer(stopTime)}, 100)
+    document.getElementById("timer-display").innerHTML = this.millisecondsConversion(timeDelta)
+    let _this = this
+    setTimeout(function() {
+        _this.timerRun(stopTime)}, 100)
     }
 
-function startTimer() {
-    running = true
-    let input = document.getElementById("display").innerHTML
-    let stopTime = addTime(input)
-    timer(stopTime)
+
+    this.startTimer = function() {
+        this.running = true
+        let input = document.getElementById("timer-display").innerHTML
+        stopTime = this.addTime(input)
+        this.timerRun(stopTime)
+    }
+
+    this.stopTimer = function() {
+        this.running = false
+        this.alarm.pause()
+        this.alarm.currentTime = 0
+
+    }
+
+    this.updateName = function() {
+        let name = document.getElementById("name-text").value
+        document.getElementById("timer-name").innerHTML = name
+
+    }
+
+
 }
 
-function stopTimer() {
-    running = false
-    alarm.pause()
-    alarm.currentTime = 0
-
-}
-
-function updateName() {
-    var name = document.getElementById("name-text").value
-    console.log(name)
-    document.getElementById("timer-name").innerHTML = name
-
-}
+var timer1 = new createTimer()
 
 
 </script>
-
-<div class="container-fluid">
-    <div class="row mt-5">
-        <div class="col-sm-4" style="background: none;"></div>
-        <div class="col-sm-4" style="background: none;">
-            <div class="grid-container">
-                <div id="timer-name">Timer Name</div>
-                <div id="display">00:00:00</div>
-                <button id="button-7" onclick="inputNumber(7)">7</button>
-                <button id="button-8" onclick="inputNumber(8)">8</button>
-                <button id="button-9" onclick="inputNumber(9)">9</button>
-                <button id="button-4" onclick="inputNumber(4)">4</button>
-                <button id="button-5" onclick="inputNumber(5)">5</button>
-                <button id="button-6" onclick="inputNumber(6)">6</button>
-                <button id="button-1" onclick="inputNumber(1)">1</button>
-                <button id="button-2" onclick="inputNumber(2)">2</button>
-                <button id="button-3" onclick="inputNumber(3)">3</button>
-                <button id="button-0" onclick="inputNumber(0)">0</button>
-                <button id="clear" onclick="clearDisplay()">Clear</button>
-                <button id="start" onclick="startTimer()">Start</button>
-
-                <button class="wide-item" id="stop" onclick="stopTimer()">Stop</button>
-                <div class="wide-item">
-                    <form class="name-form">
-                        <input id="name-text" type="text" value="Enter your timer name here...">
-                        <button type="button" id="'submit-button" onclick="updateName()">Submit Timer Name</button>
-                    </form>
-                </div>
-
-                <div class="col-sm-4" style="background: none;"></div>
+<div class="container h-100">
+    <div class="row h-100 justify-content-center align-items-center">
+        <div class="col-6">
+        <div id="timer-container">
+            <div id="timer-name">Timer Name</div>
+            <div id="timer-display">00:00:00</div>
+            <button id="button-7" onclick="timer1.inputNumber(7)">7</button>
+            <button id="button-8" onclick="timer1.inputNumber(8)">8</button>
+            <button id="button-9" onclick="timer1.inputNumber(9)">9</button>
+            <button id="button-4" onclick="timer1.inputNumber(4)">4</button>
+            <button id="button-5" onclick="timer1.inputNumber(5)">5</button>
+            <button id="button-6" onclick="timer1.inputNumber(6)">6</button>
+            <button id="button-1" onclick="timer1.inputNumber(1)">1</button>
+            <button id="button-2" onclick="timer1.inputNumber(2)">2</button>
+            <button id="button-3" onclick="timer1.inputNumber(3)">3</button>
+            <button id="button-0" onclick="timer1.inputNumber(0)">0</button>
+            <button id="clear" onclick="timer1.clearDisplay()">Clear</button>
+            <button id="start" onclick="timer1.startTimer()">Start</button>
+            <button class="wide-item" id="stop" onclick="timer1.stopTimer()">Stop</button>
+            <div class="wide-item">
+                <form id="name-form">
+                    <input type="text" value="Enter your timer name here...">
+                    <button type="button" id="'submit-button" onclick="timer1.updateName()">Submit Timer Name
+                    </button>
+                </form>
+            </div>
             </div>
         </div>
     </div>

@@ -2,153 +2,15 @@
 <html>
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <link href="/static/css/bootstrap.min.css" rel="stylesheet" media="screen">
+<link href="/static/css/custom-style.css" rel="stylesheet" >
 <head>
 <title>Lab Manager</title>
-<style>
-html,
-body,
-header,
-.view {
-  height: 100%;
-}
-
-body {
-    background-image: url('./static/images/background.jpg'); background-repeat: no-repeat; background-size: cover; background-position: center center;
-}
-
-.jumbotron {
-    background: none
-}
-.navbar {
-  background-color: #ebebeb;
-}
-.navbar .navbar-brand {
-  color: #050505;
-}
-.navbar .navbar-brand:hover,
-.navbar .navbar-brand:focus {
-  color: #050505;
-}
-.navbar .navbar-text {
-  color: #050505;
-}
-.navbar .navbar-text a {
-  color: #050505;
-}
-.navbar .navbar-text a:hover,
-.navbar .navbar-text a:focus {
-  color: #050505;
-}
-.navbar .navbar-nav .nav-link {
-  color: #050505;
-  border-radius: .25rem;
-  margin: 0 0.25em;
-}
-.navbar .navbar-nav .nav-link:not(.disabled):hover,
-.navbar .navbar-nav .nav-link:not(.disabled):focus {
-  color: #050505;
-}
-.navbar .navbar-nav .nav-item.active .nav-link,
-.navbar .navbar-nav .nav-item.active .nav-link:hover,
-.navbar .navbar-nav .nav-item.active .nav-link:focus,
-.navbar .navbar-nav .nav-item.show .nav-link,
-.navbar .navbar-nav .nav-item.show .nav-link:hover,
-.navbar .navbar-nav .nav-item.show .nav-link:focus {
-  color: #050505;
-  background-color: #c0bebd;
-}
-.navbar .navbar-toggle {
-  border-color: #c0bebd;
-}
-.navbar .navbar-toggle:hover,
-.navbar .navbar-toggle:focus {
-  background-color: #c0bebd;
-}
-.navbar .navbar-toggle .navbar-toggler-icon {
-  color: #050505;
-}
-.navbar .navbar-collapse,
-.navbar .navbar-form {
-  border-color: #050505;
-}
-.navbar .navbar-link {
-  color: #050505;
-}
-.navbar .navbar-link:hover {
-  color: #050505;
-}
-
-@media (max-width: 575px) {
-  .navbar-expand-sm .navbar-nav .show .dropdown-menu .dropdown-item {
-    color: #050505;
-  }
-  .navbar-expand-sm .navbar-nav .show .dropdown-menu .dropdown-item:hover,
-  .navbar-expand-sm .navbar-nav .show .dropdown-menu .dropdown-item:focus {
-    color: #050505;
-  }
-  .navbar-expand-sm .navbar-nav .show .dropdown-menu .dropdown-item.active {
-    color: #050505;
-    background-color: #c0bebd;
-  }
-}
-
-@media (max-width: 767px) {
-  .navbar-expand-md .navbar-nav .show .dropdown-menu .dropdown-item {
-    color: #050505;
-  }
-  .navbar-expand-md .navbar-nav .show .dropdown-menu .dropdown-item:hover,
-  .navbar-expand-md .navbar-nav .show .dropdown-menu .dropdown-item:focus {
-    color: #050505;
-  }
-  .navbar-expand-md .navbar-nav .show .dropdown-menu .dropdown-item.active {
-    color: #050505;
-    background-color: #c0bebd;
-  }
-}
-
-@media (max-width: 991px) {
-  .navbar-expand-lg .navbar-nav .show .dropdown-menu .dropdown-item {
-    color: #050505;
-  }
-  .navbar-expand-lg .navbar-nav .show .dropdown-menu .dropdown-item:hover,
-  .navbar-expand-lg .navbar-nav .show .dropdown-menu .dropdown-item:focus {
-    color: #050505;
-  }
-  .navbar-expand-lg .navbar-nav .show .dropdown-menu .dropdown-item.active {
-    color: #050505;
-    background-color: #c0bebd;
-  }
-}
-
-@media (max-width: 1199px) {
-  .navbar-expand-xl .navbar-nav .show .dropdown-menu .dropdown-item {
-    color: #050505;
-  }
-  .navbar-expand-xl .navbar-nav .show .dropdown-menu .dropdown-item:hover,
-  .navbar-expand-xl .navbar-nav .show .dropdown-menu .dropdown-item:focus {
-    color: #050505;
-  }
-  .navbar-expand-xl .navbar-nav .show .dropdown-menu .dropdown-item.active {
-    color: #050505;
-    background-color: #c0bebd;
-  }
-}
-
-.navbar-expand .navbar-nav .show .dropdown-menu .dropdown-item {
-  color: #050505;
-}
-.navbar-expand .navbar-nav .show .dropdown-menu .dropdown-item:hover,
-.navbar-expand .navbar-nav .show .dropdown-menu .dropdown-item:focus {
-  color: #050505;
-}
-.navbar-expand .navbar-nav .show .dropdown-menu .dropdown-item.active {
-  color: #050505;
-  background-color: #c0bebd;
-}
-</style>
 </head>
+
 <body>
-<nav class="navbar navbar-expand-lg">
+
+<nav class="navbar navbar-expand-lg fixed-top">
+  <div class="container">
   <a class="navbar-brand" href="#">Lab Manager</a>
   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
     <span class="navbar-toggler-icon"></span>
@@ -169,7 +31,9 @@ body {
       </li>
     </ul>
   </div>
+    </div>
 </nav>
+
 {% block content %} {% endblock %}
 </body>
 </html>
