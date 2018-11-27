@@ -1,8 +1,13 @@
-function createTimer() {
+// Timer Class
+
+function createTimer(number) {
     this.running = false
     this.entered_digits = 0
     this.alarm = new Audio("/static/audio/alarm.mp3")
     this.i = 1
+    this.display_element = "timer" + number + "-display"
+    this.name_text_element =  "name" + number + "-text"
+    this.timer_name_element = "timer" + number + "-name"
 
     this.inputNumber = function(number) {
         if (this.running == true) {
@@ -13,11 +18,11 @@ function createTimer() {
             return
         }
 
-        let display_text = document.getElementById("timer-display").innerHTML
+        let display_text = document.getElementById(this.display_element).innerHTML
         let display_without_colon = display_text.substring(0,2) + display_text.substring(3,5) + display_text.substring(6,8) + number
         let display_trimmed = display_without_colon.substring(1,7)
         let display_with_colon = display_trimmed.substring(0,2) + ":" + display_trimmed.substring(2,4) + ":" +  display_trimmed.substring(4,6)
-        document.getElementById("timer-display").innerHTML = display_with_colon
+        document.getElementById(this.display_element).innerHTML = display_with_colon
         this.entered_digits++
         }
 
@@ -29,7 +34,7 @@ function createTimer() {
             return
         }
         this.entered_digits = 0
-        document.getElementById("timer-display").innerHTML = "00:00:00"
+        document.getElementById(this.display_element).innerHTML = "00:00:00"
 
         }
 
@@ -65,7 +70,7 @@ function createTimer() {
     this.alarm.play()
     return
     }
-    document.getElementById("timer-display").innerHTML = this.millisecondsConversion(timeDelta)
+    document.getElementById(this.display_element).innerHTML = this.millisecondsConversion(timeDelta)
     let _this = this
     setTimeout(function() {
         _this.timerRun(stopTime)}, 100)
@@ -74,7 +79,7 @@ function createTimer() {
 
     this.startTimer = function() {
         this.running = true
-        let input = document.getElementById("timer-display").innerHTML
+        let input = document.getElementById(this.display_element).innerHTML
         stopTime = this.addTime(input)
         this.timerRun(stopTime)
     }
@@ -87,10 +92,36 @@ function createTimer() {
     }
 
     this.updateName = function() {
-        let name = document.getElementById("name-text").value
-        document.getElementById("timer-name").innerHTML = name
+        let name = document.getElementById(this.name_text_element).value
+        document.getElementById(this.timer_name_element).innerHTML = name
 
     }
 
 
+}
+
+// Counter number function
+
+$(document).ready(function(){
+    $('.count').prop('disabled', true);
+    $(document).on('click','.plus',function(){
+        $('.count').val(parseInt($('.count').val()) + 1 );
+    });
+    $(document).on('click','.minus',function(){
+        $('.count').val(parseInt($('.count').val()) - 1 );
+            if ($('.count').val() == 0) {
+                $('.count').val(1);
+            }
+        });
+});
+
+//Redirect function
+
+function Redirect() {
+    let current_url = window.location.href
+    let counter_number = document.getElementById("selector").value
+    let redirect_endpoint = "timer_array/" + counter_number
+    let replaced_url = current_url.replace("set_up_timers", redirect_endpoint)
+    console.log(replaced_url)
+    window.location = replaced_url
 }

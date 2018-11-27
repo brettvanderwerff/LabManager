@@ -6,19 +6,16 @@
         <div class="col-7">
             <div class="jumbotron">
                 <h2 class="text-black">How many timers do you need?</h2>
-                <p class="lead">
-                <div class="dropdown">
-                    <button class="btn btn-primary dropdown-toggle" type="button" id="dropdownMenuButton"
-                            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        Select Number
-                    </button>
-                    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                        <a class="dropdown-item" href="/timer_array/1">1</a>
-                        <a class="dropdown-item" href="/timer_array/2">2</a>
-                        <a class="dropdown-item" href="/timer_array/3">3</a>
+
+                	<div class="qty mt-5">
+                        <span class="minus bg-dark">-</span>
+                        <input id="selector" type="number" class="count" name="qty" value="1">
+                        <span class="plus bg-dark">+</span>
                     </div>
+                <button type="button" class="btn btn-primary" onclick="Redirect()">Primary</button>
                 </div>
-                </p>
+
+
             </div>
         </div>
     </div>
