@@ -31,8 +31,8 @@ timer{{timer}} = new createTimer({{timer}})
                 <button id="start" onclick="timer{{timer}}.startTimer()">Start</button>
                 <button class="wide-item" id="stop" onclick="timer{{timer}}.stopTimer()">Stop</button>
                 <div class="wide-item">
-                    <form id="name-form">
-                        <input id="name{{timer}}-text" type="text" value="Enter your timer name here...">
+                    <form id="name-form" autocomplete="off">
+                        <input id="name{{timer}}-text" type="text" onfocus="this.value=''" value="Enter your timer name here...">
                         <button type="button" id="'submit-button" onclick="timer{{timer}}.updateName()">Submit Timer
                             Name
                         </button>

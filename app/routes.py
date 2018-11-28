@@ -23,7 +23,6 @@ def button_array(number_timers):
     number_timers = [i for i in range(int(number_timers))]
     timers_per_row = 3
     grid_list = [number_timers[i * timers_per_row:(i + 1) * timers_per_row] for i in range((len(number_timers) + timers_per_row - 1) // timers_per_row)]
-    print(grid_list)
     return render_template('timer_array.html', grid_list=grid_list)
 
 @app.route('/register')

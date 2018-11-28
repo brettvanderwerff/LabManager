@@ -105,7 +105,6 @@ function createTimer(number) {
 $(document).ready(function(){
     $('.count').prop('disabled', true);
     $(document).on('click','.plus',function(){
-        console.log($('.count').attr('max'))
         if ($('.count').val() >= parseInt($('.count').attr('max'))) {
                 $('.count').val(parseInt($('.count').attr('max')));
             } else {
@@ -130,3 +129,13 @@ function Redirect() {
     console.log(replaced_url)
     window.location = replaced_url
 }
+
+//Prevent user from hitting enter on web forms
+$(document).ready(function() {
+  $(window).keydown(function(event){
+    if(event.keyCode == 13) {
+      event.preventDefault();
+      return false;
+    }
+  });
+});
