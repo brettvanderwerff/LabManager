@@ -14,9 +14,8 @@
 </head>
 
 <body>
-
-<nav class="navbar navbar-expand-lg">
-  <a class="navbar-brand" href="#">Lab Manager</a>
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+  <a class="navbar-brand" href="/">Timer Manger</a>
   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
     <span class="navbar-toggler-icon"></span>
   </button>
@@ -26,18 +25,21 @@
         <a class="nav-link" href="/">Home <span class="sr-only">(current)</span></a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" href="#">Log in</a>
+        <a class="nav-link" href="#">Log In</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="/register">Register</a>
       </li>
       <li class="nav-item">
         <a class="nav-link" href="/quick_timer">Quick Timer</a>
       </li>
       <li class="nav-item">
-        <a class="nav-link disabled" href="/set_up_timers">Set Up Timers</a>
+        <a class="nav-link" href="/set_up_timers">Set Up Timers</a>
       </li>
+
     </ul>
   </div>
 </nav>
-
 {% block content %} {% endblock %}
 </body>
 </html>

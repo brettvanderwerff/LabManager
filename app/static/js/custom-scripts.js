@@ -105,7 +105,12 @@ function createTimer(number) {
 $(document).ready(function(){
     $('.count').prop('disabled', true);
     $(document).on('click','.plus',function(){
-        $('.count').val(parseInt($('.count').val()) + 1 );
+        console.log($('.count').attr('max'))
+        if ($('.count').val() >= parseInt($('.count').attr('max'))) {
+                $('.count').val(parseInt($('.count').attr('max')));
+            } else {
+                $('.count').val(parseInt($('.count').val()) + 1 );
+            }
     });
     $(document).on('click','.minus',function(){
         $('.count').val(parseInt($('.count').val()) - 1 );

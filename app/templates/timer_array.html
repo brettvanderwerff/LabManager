@@ -7,14 +7,13 @@
 timer{{timer}} = new createTimer({{timer}})
 {% endfor %}
 {% endfor %}
-
 </script>
-<div class="container">
-        {% for row in grid_list %}
-    <div class="row">
-            {% for timer in row %}
 
-        <div class="col-4 mt-5">
+<div class="container-fluid">
+    {% for row in grid_list %}
+    <div class="row">
+        {% for timer in row %}
+        <div class="col-sm-4 mt-5">
             <div id="timer-container">
                 <div id="timer{{timer}}-name">Timer Name</div>
                 <div id="timer{{timer}}-display">00:00:00</div>
@@ -34,17 +33,16 @@ timer{{timer}} = new createTimer({{timer}})
                 <div class="wide-item">
                     <form id="name-form">
                         <input id="name{{timer}}-text" type="text" value="Enter your timer name here...">
-                        <button type="button" id="'submit-button" onclick="timer{{timer}}.updateName()">Submit Timer Name
+                        <button type="button" id="'submit-button" onclick="timer{{timer}}.updateName()">Submit Timer
+                            Name
                         </button>
                     </form>
                 </div>
             </div>
         </div>
         {% endfor %}
-         </div>
+    </div>
     {% endfor %}
-
-
 
 </div>
 {% endblock %}

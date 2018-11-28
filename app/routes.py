@@ -26,7 +26,13 @@ def button_array(number_timers):
     print(grid_list)
     return render_template('timer_array.html', grid_list=grid_list)
 
+@app.route('/register')
+def register():
+    return render_template('register.html')
+
 # ToDo just focus on making a page with grid of timers that have a title and can be run independently then focus on letting user save those timers
 # ToDo radio buttons to choose timer sound
 # ToDo make display flash when timer is up
 # ToDo make display count negative time after timer expires
+#ToDo switch to cards instead of jumbotrons for everything
+#ToDo just make weform for allowing user to save timer names, saving the state of a page looks way too hard
