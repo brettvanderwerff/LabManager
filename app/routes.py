@@ -1,5 +1,6 @@
-from flask import render_template
+from flask import render_template, redirect, request
 from app import app
+from app.forms import RegisterForm
 
 
 @app.route('/')
@@ -25,9 +26,22 @@ def button_array(number_timers):
     grid_list = [number_timers[i * timers_per_row:(i + 1) * timers_per_row] for i in range((len(number_timers) + timers_per_row - 1) // timers_per_row)]
     return render_template('timer_array.html', grid_list=grid_list)
 
-@app.route('/register')
+@app.route('/register', methods=['GET', 'POST'])
 def register():
-    return render_template('register.html')
+    form = RegisterForm()
+    if request.method == 'POST':
+        email = request.form['email']
+        password = request.form['password']
+        confirm = request.form['confirm']
+
+
+    if form.validate_on_submit():
+        return redirect('/sucess')
+    return render_template('register.html', form=form)
+
+@app.route('/sucess')
+def sucess():
+    return 'sucess'
 
 # ToDo just focus on making a page with grid of timers that have a title and can be run independently then focus on letting user save those timers
 # ToDo radio buttons to choose timer sound
