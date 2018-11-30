@@ -1,4 +1,4 @@
-from flask import render_template, redirect, request
+from flask import render_template, redirect
 from app import app
 from app.forms import RegisterForm
 
@@ -14,9 +14,9 @@ def quick_timer():
     return render_template('quick_timer.html', timer=1)
 
 
-@app.route('/set_up_timers')
-def set_up_timers():
-    return render_template('set_up_timers.html')
+@app.route('/quick_timer_array')
+def quick_timer_array():
+    return render_template('quick_timer_array.html')
 
 
 @app.route('/timer_array/<number_timers>')
@@ -29,12 +29,6 @@ def button_array(number_timers):
 @app.route('/register', methods=['GET', 'POST'])
 def register():
     form = RegisterForm()
-    if request.method == 'POST':
-        email = request.form['email']
-        password = request.form['password']
-        confirm = request.form['confirm']
-
-
     if form.validate_on_submit():
         return redirect('/sucess')
     return render_template('register.html', form=form)
@@ -47,5 +41,5 @@ def sucess():
 # ToDo radio buttons to choose timer sound
 # ToDo make display flash when timer is up
 # ToDo make display count negative time after timer expires
-#ToDo switch to cards instead of jumbotrons for everything
-#ToDo just make weform for allowing user to save timer names, saving the state of a page looks way too hard
+# ToDo just make weform for allowing user to save timer names, saving the state of a page looks way too hard
+# ToDo add flask limiter and recaptcha

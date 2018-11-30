@@ -1,0 +1,11 @@
+{% macro render_submit(submit) %}
+
+{{ submit(class_='btn btn-lg btn-primary btn-block', **kwargs)|safe }}
+
+<ul>
+    {% for error in submit.errors %}
+    <li style="color:red;"> {{ error }}</li>
+    {% endfor %}
+</ul>
+
+{% endmacro %}

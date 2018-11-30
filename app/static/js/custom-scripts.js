@@ -125,7 +125,7 @@ function Redirect() {
     let current_url = window.location.href
     let counter_number = document.getElementById("selector").value
     let redirect_endpoint = "timer_array/" + counter_number
-    let replaced_url = current_url.replace("set_up_timers", redirect_endpoint)
+    let replaced_url = current_url.replace("quick_timer_array", redirect_endpoint)
     console.log(replaced_url)
     window.location = replaced_url
 }
