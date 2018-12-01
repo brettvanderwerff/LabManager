@@ -1,6 +1,7 @@
 from flask import render_template, redirect
-from app import app
+from app import app, db
 from app.forms import RegisterForm
+from app.models import User
 
 
 @app.route('/')
@@ -30,6 +31,11 @@ def button_array(number_timers):
 def register():
     form = RegisterForm()
     if form.validate_on_submit():
+        email = form.email
+        password = form.password
+        user = User(email=email, password=password)
+        db.session.add(user)
+        db.session.commit()
         return redirect('/sucess')
     return render_template('register.html', form=form)
 
