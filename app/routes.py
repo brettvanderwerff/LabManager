@@ -31,8 +31,8 @@ def button_array(number_timers):
 def register():
     form = RegisterForm()
     if form.validate_on_submit():
-        email = form.email
-        password = form.password
+        email = form.email.data
+        password = form.password.data
         user = User(email=email, password=password)
         db.session.add(user)
         db.session.commit()
