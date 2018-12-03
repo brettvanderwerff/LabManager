@@ -1,6 +1,6 @@
 {% macro render_submit(submit) %}
 
-{{ submit(class_='btn btn-lg btn-primary btn-block', **kwargs)|safe }}
+{{ submit(**kwargs)|safe }}
 
 <ul>
     {% for error in submit.errors %}

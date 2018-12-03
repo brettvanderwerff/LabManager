@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+{% from "_render_submit.html" import render_submit %}
+{% block content %}
+<div class="container-fluid h-100">
+    <div class="row h-100 justify-content-center align-items-center">
+        <div class="col-sm-7">
+            <div class="card card-body">
+                <form action="" method="post" role="form" novalidate>
+                    {{ form.csrf_token }}
+                    <div>
+                        <h2 class="text-black">How many timers do you want to set up?</h2>
+                    </div>
+                    <div class="qty mt-5">
+                        <span class="minus bg-dark">-</span>
+                        {{ form.selector(type="text", class="count",  value="1", max="25")|safe }}
+                        <span class="plus bg-dark">+</span>
+                    </div>
+                    <div class="mt-5">
+                    {{ form.submit(type="submit", class="btn btn-primary", value=form.submit.label.text)|safe }}
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+</div>
+{% endblock %}

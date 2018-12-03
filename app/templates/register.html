@@ -14,7 +14,8 @@
                         {{ render_field(form.email, placeholder=form.email.label.text) }}
                         {{ render_field(form.password, placeholder=form.password.label.text) }}
                         {{ render_field(form.confirm, placeholder=form.confirm.label.text) }}
-                        {{ render_submit(form.submit, value=form.submit.label.text) }}
+                        {{ form.recaptcha }}
+                        {{ render_submit(form.submit, class_='btn btn-lg btn-primary btn-block', value=form.submit.label.text) }}
                         {% if error %}
                         <div class="alert alert-danger">
                             <strong>Error: </strong> {{ error }}

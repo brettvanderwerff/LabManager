@@ -10,3 +10,7 @@ configurations = {}
 
 configurations['SECRET_KEY'] = 'secret'
 configurations['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///' + database_path
+configurations['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
+configurations['RECAPTCHA_PUBLIC_KEY'] = '6Le0Zn4UAAAAAB-rVX5sGskqmXBRLQ67VsSmy0ni'
+configurations['RECAPTCHA_PRIVATE_KEY'] = '6Le0Zn4UAAAAALftE6FAjXLsfczXdOYd2lWRbVQZ'
+configurations['TESTING'] = True
