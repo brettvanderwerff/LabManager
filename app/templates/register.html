@@ -15,6 +15,11 @@
                         {{ render_field(form.password, placeholder=form.password.label.text) }}
                         {{ render_field(form.confirm, placeholder=form.confirm.label.text) }}
                         {{ render_submit(form.submit, value=form.submit.label.text) }}
+                        {% if error %}
+                        <div class="alert alert-danger">
+                            <strong>Error: </strong> {{ error }}
+                        </div>
+                        {% endif %}
                     </fieldset>
                     </form>
                 </div>
