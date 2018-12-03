@@ -94,4 +94,5 @@ def logout():
 # ToDo make display count negative time after timer expires
 # ToDo just make webform for allowing user to save timer names, saving the state of a page is too hard
 # ToDo add flask limiter and recaptcha and https://realpython.com/handling-email-confirmation-in-flask/
-# ToDo use bootstrap instead off css grid for timer
+# ToDo use bootstrap instead off css grid for timer # https://codepen.io/gianc/pen/dXZYxz (this example and many others are bootstrap 3
+# The easiest thing to do might be just not to have timer name submit form
