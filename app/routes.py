@@ -37,13 +37,16 @@ def quick_timer():
     return render_template('quick_timer.html', timer=1, logged_in=current_user.is_authenticated)
 
 
-@app.route('/quick_timer_array')
+@app.route('/quick_timer_array', methods=['GET', 'POST'])
 def quick_timer_array():
-    return render_template('quick_timer_array.html', logged_in=current_user.is_authenticated)
+    form = SetUpTimers()
+    if form.validate_on_submit():
+        return redirect(url_for('timer_array', number_timers = form.selector.data))
+    return render_template('quick_timer_array.html', form=form, logged_in=current_user.is_authenticated)
 
 
 @app.route('/timer_array/<number_timers>')
-def button_array(number_timers):
+def timer_array(number_timers):
     number_timers = [i for i in range(int(number_timers))]
     timers_per_row = 3
     grid_list = [number_timers[i * timers_per_row:(i + 1) * timers_per_row] for i in range((len(number_timers) + timers_per_row - 1) // timers_per_row)]
@@ -70,8 +73,12 @@ def register():
 def set_up_timers():
     form = SetUpTimers()
     if form.validate_on_submit():
-        return form.selector.data
+        return redirect(url_for('set_up_timers_form', number_timers=form.selector.data))
     return render_template('set_up_timers.html', logged_in=current_user.is_authenticated, form=form)
+
+@app.route('/set_up_timers_form/<number_timers>', methods=['GET', 'POST'])
+def set_up_timers_form(number_timers):
+    return render_template('set_up_timers_form.html')
 
 @app.route('/logout')
 @login_required

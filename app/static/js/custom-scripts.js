@@ -103,7 +103,6 @@ function createTimer(number) {
 // Counter number function
 
 $(document).ready(function(){
-    $('.count').prop('disabled', true);
     $(document).on('click','.plus',function(){
         if ($('.count').val() >= parseInt($('.count').attr('max'))) {
                 $('.count').val(parseInt($('.count').attr('max')));
@@ -119,16 +118,6 @@ $(document).ready(function(){
         });
 });
 
-//Redirect function
-
-function Redirect() {
-    let current_url = window.location.href
-    let counter_number = document.getElementById("selector").value
-    let redirect_endpoint = "timer_array/" + counter_number
-    let replaced_url = current_url.replace("quick_timer_array", redirect_endpoint)
-    console.log(replaced_url)
-    window.location = replaced_url
-}
 
 //Prevent user from hitting enter on web forms
 $(document).ready(function() {
