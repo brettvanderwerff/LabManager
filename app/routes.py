@@ -1,9 +1,11 @@
 from flask import render_template, redirect, url_for, flash
 from app import app, db, login_manager
-from app.forms import RegisterForm, LoginForm, SetUpTimers
+from app.forms import RegisterForm, LoginForm, SelectTimers, SetUpTimers
 from app.models import User
 from werkzeug.security import generate_password_hash, check_password_hash
 from flask_login import login_user, login_required, current_user, logout_user
+from wtforms import StringField
+from wtforms.validators import DataRequired
 
 @login_manager.user_loader
 def load_user(id):
@@ -39,7 +41,7 @@ def quick_timer():
 
 @app.route('/quick_timer_array', methods=['GET', 'POST'])
 def quick_timer_array():
-    form = SetUpTimers()
+    form = SelectTimers()
     if form.validate_on_submit():
         return redirect(url_for('timer_array', number_timers = form.selector.data))
     return render_template('quick_timer_array.html', form=form, logged_in=current_user.is_authenticated)
@@ -71,14 +73,28 @@ def register():
 
 @app.route('/set_up_timers', methods=['GET', 'POST'])
 def set_up_timers():
-    form = SetUpTimers()
+    form = SelectTimers()
     if form.validate_on_submit():
         return redirect(url_for('set_up_timers_form', number_timers=form.selector.data))
     return render_template('set_up_timers.html', logged_in=current_user.is_authenticated, form=form)
 
 @app.route('/set_up_timers_form/<number_timers>', methods=['GET', 'POST'])
 def set_up_timers_form(number_timers):
-    return render_template('set_up_timers_form.html')
+    number_timers = int(number_timers)
+
+    form = SetUpTimers()
+    for timer in range(number_timers):
+        name = "timer_{}_name".format(timer)
+        hours = "timer_{}_hours".format(timer)
+        minutes = "timer_{}_minutes".format(timer)
+        seconds = "timer_{}_seconds".format(timer)
+        setattr(form, name, StringField(name, validators=[DataRequired()]))
+        setattr(form, hours, StringField(hours, validators=[DataRequired()]))
+        setattr(form, minutes, StringField(minutes, validators=[DataRequired()]))
+        setattr(form, seconds, StringField(seconds, validators=[DataRequired()]))
+    if form.validate_on_submit():
+        return 'success'
+    return render_template('set_up_timers_form.html', logged_in=current_user.is_authenticated, form=form, number_timers=number_timers)
 
 @app.route('/logout')
 @login_required

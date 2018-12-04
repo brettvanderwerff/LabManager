@@ -1,7 +1,6 @@
 {% extends "base.html" %}
 <!-- https://medium.com/wdstack/bootstrap-4-form-examples-c18ac5e9cd30 -->
 {% from "_render_field.html" import render_field %}
-{% from "_render_submit.html" import render_submit %}
 {% block content %}
 <div class="container-fluid h-100">
     <div class="row h-100 justify-content-center align-items-center">
@@ -13,7 +12,7 @@
                     <fieldset>
                         {{ render_field(form.email, placeholder=form.email.label.text) }}
                         {{ render_field(form.password, placeholder=form.password.label.text) }}
-                        {{ render_submit(form.submit, class_='btn btn-lg btn-primary btn-block', value=form.submit.label.text) }}
+                        {{ form.submit(type="submit", class="btn btn-lg btn-primary btn-block", value=form.submit.label.text)|safe }}
                         {% if error %}
                         <div class="alert alert-danger">
                             <strong>Error: </strong> {{ error }}

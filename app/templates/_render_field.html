@@ -3,12 +3,17 @@
 <div class="form-group">
     {{ field(class_='form-control', **kwargs)|safe }}
 
-        {% for error in field.errors %}
-        <div class="alert alert-danger">
-            <strong>Error: </strong> {{ error }}
-        </div>
+    {% for error in field.errors %}
+    <div class="alert alert-danger">
+        <strong>Error: </strong> {{ error }}
+    </div>
 
-        {% endfor %}
+    {% endfor %}
 </div>
 
+{% endmacro %}
+
+{% macro render_timer_form_field(timer, time) %}
+<label for="timer_{{timer}}_{{time}}">Hours</label>
+<input type="text" class="form-control" id="timer_{{timer}}_{{time}}" maxlength="2">
 {% endmacro %}

@@ -1,4 +1,4 @@
-from wtforms import StringField, PasswordField, SubmitField, IntegerField
+from wtforms import StringField, PasswordField, SubmitField
 from flask_wtf import FlaskForm, RecaptchaField
 from wtforms.validators import DataRequired, EqualTo
 
@@ -14,7 +14,13 @@ class LoginForm(FlaskForm):
     password = PasswordField('Password', validators=[DataRequired()])
     submit = SubmitField('Log Me In')
 
-class SetUpTimers(FlaskForm):
+class SelectTimers(FlaskForm):
     selector = StringField('Selector')
     submit = SubmitField('Set Up Timers')
+
+class SetUpTimers(FlaskForm):
+    submit = SubmitField('Save Configuration')
+    configuration = StringField('Configuration Name', validators=[DataRequired()])
+
+
 

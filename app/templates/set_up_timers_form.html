@@ -1,30 +1,39 @@
 {% extends "base.html" %}
-
+{% from "_render_field.html" import render_field %}
+{% from "_render_field.html" import render_timer_form_field %}
 {% block content %}
 <div class="container-fluid">
     <div class="row h-100 justify-content-center align-items-center">
         <div class="col-md-6 mt-5">
-            <div class="card card-body">
-                <form>
+            <div class="card">
+                {% for timer in range(number_timers) %}
+                <div class="card-header mb-1">
+                            <h4 class="mb-0">Timer {{timer + 1}}</h4>
+                        </div>
+                <form class="ml-2 mr-2" action="" method="post" role="form" novalidate>
                     <div class="form-row">
                         <div class="form-group col-md-6">
-                            <label for="inputCity">Timer Name</label>
-                            <input type="text" class="form-control" id="inputCity">
+                            <label for="timer_{{ timer }}_name">Timer Name</label>
+                            <input type="text" class="form-control" id="timer_{{ timer }}_name">
                         </div>
                         <div class="form-group col-md-2">
-                            <label for="inputZip">Hours</label>
-                            <input type="text" class="form-control" id="inputZip" maxlength="2">
+                            {{ render_timer_form_field(timer, "hours") }}
                         </div>
                         <div class="form-group col-md-2">
-                            <label for="inputZip">Minutes</label>
-                            <input type="text" class="form-control" id="inputZip" maxlength="2">
+                            {{ render_timer_form_field(timer, "minutes") }}
                         </div>
                         <div class="form-group col-md-2">
-                            <label for="inputZip">Seconds</label>
-                            <input type="text" class="form-control" id="inputZip" maxlength="2">
+                            {{ render_timer_form_field(timer, "seconds") }}
                         </div>
                     </div>
-                    <button type="submit" class="btn btn-primary">Sign in</button>
+                    {% endfor %}
+                    <div class="form-row">
+                        <div class="form-group col-md-12">
+                            <label for="configuration">Configuration Name</label>
+                            {{ render_field(form.configuration, class="form-control", id="configuration") }}
+                        </div>
+                    </div>
+                    {{ form.submit(type="submit", class="btn btn-primary mb-2", value=form.submit.label.text)|safe }}
                 </form>
             </div>
         </div>
