@@ -1,7 +1,7 @@
 from flask import render_template, redirect, url_for, flash
 from app import app, db, login_manager
 from app.forms import RegisterForm, LoginForm, SelectTimers, SetUpTimers
-from app.models import User
+from app.models import User, Configuration, Timer
 from werkzeug.security import generate_password_hash, check_password_hash
 from flask_login import login_user, login_required, current_user, logout_user
 from wtforms import StringField
@@ -24,12 +24,13 @@ def login():
         email = form.email.data
         password = form.password.data
         user = User.query.filter_by(email=email).first()
-        if check_password_hash(user.password, password):
-            login_user(user)
-            flash('Successfully logged in!')
-            return redirect(url_for('index'))
+        if User.query.filter_by(email=email).first() != None:
+            if check_password_hash(user.password, password):
+                login_user(user)
+                flash('Successfully logged in!')
+                return redirect(url_for('index'))
         else:
-            error = 'username or password is incorrect'
+            error = 'username or password is incorrect or does not exist'
 
     return render_template('login.html', form=form, error=error, logged_in=current_user.is_authenticated)
 
@@ -67,7 +68,8 @@ def register():
             user = User(email=email, password=password)
             db.session.add(user)
             db.session.commit()
-            flash('Successfully registered!')
+            login_user(user)
+            flash('Successfully registered and logged in!')
             return redirect(url_for('index'))
     return render_template('register.html', form=form, error=error, logged_in=current_user.is_authenticated)
 
@@ -80,21 +82,59 @@ def set_up_timers():
 
 @app.route('/set_up_timers_form/<number_timers>', methods=['GET', 'POST'])
 def set_up_timers_form(number_timers):
+    error = None
     number_timers = int(number_timers)
-
-    form = SetUpTimers()
     for timer in range(number_timers):
         name = "timer_{}_name".format(timer)
         hours = "timer_{}_hours".format(timer)
         minutes = "timer_{}_minutes".format(timer)
         seconds = "timer_{}_seconds".format(timer)
-        setattr(form, name, StringField(name, validators=[DataRequired()]))
-        setattr(form, hours, StringField(hours, validators=[DataRequired()]))
-        setattr(form, minutes, StringField(minutes, validators=[DataRequired()]))
-        setattr(form, seconds, StringField(seconds, validators=[DataRequired()]))
+        setattr(SetUpTimers, name, StringField(name, validators=[DataRequired()]))
+        setattr(SetUpTimers, hours, StringField(hours, validators=[DataRequired()]))
+        setattr(SetUpTimers, minutes, StringField(minutes, validators=[DataRequired()]))
+        setattr(SetUpTimers, seconds, StringField(seconds, validators=[DataRequired()]))
+    form = SetUpTimers()
+    object_list = []
+    for timer in range(number_timers):
+        form_dict = {'name': None, 'hours': None, 'minutes': None, 'seconds' : None}
+
+        name = "timer_{}_name".format(timer)
+        hours = "timer_{}_hours".format(timer)
+        minutes = "timer_{}_minutes".format(timer)
+        seconds = "timer_{}_seconds".format(timer)
+        form_dict['name'] = getattr(form, name)
+        form_dict['hours'] = getattr(form, hours)
+        form_dict['minutes'] = getattr(form, minutes)
+        form_dict['seconds'] = getattr(form, seconds)
+
+        object_list.append(form_dict)
+
+
     if form.validate_on_submit():
-        return 'success'
-    return render_template('set_up_timers_form.html', logged_in=current_user.is_authenticated, form=form, number_timers=number_timers)
+        user = User.query.filter_by(id=current_user.get_id()).first()
+        if Configuration.query.filter_by(name=form.configuration.data).first() != None:
+            error = 'Configuration with same name already exits'
+
+        else:
+            configuration = Configuration(name=form.configuration.data, user=user)
+            db.session.add(configuration)
+            db.session.commit()
+
+            for form_dict in object_list:
+                name = getattr(form_dict['name'], "data")
+                hours = getattr(form_dict['hours'], "data")
+                minutes = getattr(form_dict['minutes'], "data")
+                seconds =getattr(form_dict['seconds'], "data")
+                timer = Timer(name=name, hours=hours, minutes=minutes, seconds=seconds, configuration=configuration)
+                db.session.add(timer)
+                db.session.commit()
+
+            return redirect(url_for('my_timers'))
+    return render_template('set_up_timers_form.html',
+                           logged_in=current_user.is_authenticated,
+                           form=form, timer=timer,
+                           object_list=object_list,
+                           error=error)
 
 @app.route('/logout')
 @login_required
@@ -102,6 +142,12 @@ def logout():
     logout_user()
     flash('Successfully logged out')
     return redirect(url_for('index'))
+
+@app.route('/my_timers')
+def my_timers():
+    user_id = current_user.get_id()
+    configurations = Configuration.query.filter_by(user_id=user_id).all()
+    return render_template('my_timers.html', configurations=configurations, logged_in=current_user.is_authenticated)
 
 
 

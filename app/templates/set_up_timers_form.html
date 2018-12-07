@@ -1,40 +1,53 @@
 {% extends "base.html" %}
 {% from "_render_field.html" import render_field %}
-{% from "_render_field.html" import render_timer_form_field %}
 {% block content %}
 <div class="container-fluid">
     <div class="row h-100 justify-content-center align-items-center">
-        <div class="col-md-6 mt-5">
+        <div class="col-md-8 mt-5">
             <div class="card">
-                {% for timer in range(number_timers) %}
-                <div class="card-header mb-1">
-                            <h4 class="mb-0">Timer {{timer + 1}}</h4>
-                        </div>
                 <form class="ml-2 mr-2" action="" method="post" role="form" novalidate>
-                    <div class="form-row">
-                        <div class="form-group col-md-6">
-                            <label for="timer_{{ timer }}_name">Timer Name</label>
-                            <input type="text" class="form-control" id="timer_{{ timer }}_name">
-                        </div>
-                        <div class="form-group col-md-2">
-                            {{ render_timer_form_field(timer, "hours") }}
-                        </div>
-                        <div class="form-group col-md-2">
-                            {{ render_timer_form_field(timer, "minutes") }}
-                        </div>
-                        <div class="form-group col-md-2">
-                            {{ render_timer_form_field(timer, "seconds") }}
-                        </div>
+                    {{form.csrf_token}}
+
+                    {% for item in object_list %}
+
+                    <div class="card-header mb-1">
+                        <h4 class="mb-0">Timer {{loop.index}}</h4>
                     </div>
-                    {% endfor %}
-                    <div class="form-row">
-                        <div class="form-group col-md-12">
-                            <label for="configuration">Configuration Name</label>
-                            {{ render_field(form.configuration, class="form-control", id="configuration") }}
+                    <form class="ml-2 mr-2" action="" method="post" role="form" novalidate>
+                        <div class="form-row">
+                            <div class="form-group col-md-6">
+                                <label>Timer Name</label>
+                                {{ render_field(item['name']) }}
+                            </div>
+                            <div class="form-group col-md-2">
+                                <label>Hours</label>
+                                {{ render_field(item['hours'], maxlength="2") }}
+                            </div>
+                            <div class="form-group col-md-2">
+                                <label>Minutes</label>
+                                {{ render_field(item['minutes'], maxlength="2") }}
+                            </div>
+                            <div class="form-group col-md-2">
+                                <label>Seconds</label>
+                                {{ render_field(item['seconds'], maxlength="2") }}
+                            </div>
                         </div>
-                    </div>
-                    {{ form.submit(type="submit", class="btn btn-primary mb-2", value=form.submit.label.text)|safe }}
-                </form>
+                        {% endfor %}
+
+                        <div class="form-row">
+                            <div class="form-group col-md-12">
+                                <label for="configuration">Configuration Name</label>
+                                {{ render_field(form.configuration, class="form-control", id="configuration") }}
+                            </div>
+                        </div>
+                        {% if error %}
+                        <div class="alert alert-danger">
+                            <strong>Error: </strong> {{ error }}
+                        </div>
+                        {% endif %}
+                        {{ form.submit(type="submit", class="btn btn-primary mb-2", value=form.submit.label.text)|safe
+                        }}
+                    </form>
             </div>
         </div>
     </div>

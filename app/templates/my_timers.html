@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="container-fluid h-100">
+    <div class="row h-100 justify-content-center align-items-center">
+        <div class="col-sm-7">
+            <div class="card card-body">
+                <form action="/action_page.php">
+                    <div class="form-group">
+                        <label for="sel2">Select your configuraiton (To Do make error if person selects more than one</label>
+                        <select multiple class="form-control" id="sel2" name="sellist2">
+                            {% for configuration in configurations %}
+                            <option>{{configuration.name}}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Run Configuration</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
