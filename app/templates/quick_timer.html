@@ -1,15 +1,12 @@
 {% extends "base.html" %}
 
 {% block content %}
-<script>
-timer{{timer}} = new createTimer({{timer}})
-</script>
 <div class="container h-100">
     <div class="row h-100 justify-content-center align-items-center">
         <div class="col-sm-6">
         <div id="timer-container">
             <div id="timer{{timer}}-name">Timer Name</div>
-                <div id="timer{{timer}}-display">00:00:00</div>
+                <div id="timer{{timer}}-display"></div>
                 <button id="button-7" onclick="timer{{timer}}.inputNumber(7)">7</button>
                 <button id="button-8" onclick="timer{{timer}}.inputNumber(8)">8</button>
                 <button id="button-9" onclick="timer{{timer}}.inputNumber(9)">9</button>
@@ -34,4 +31,7 @@ timer{{timer}} = new createTimer({{timer}})
         </div>
     </div>
 </div>
+<script>
+timer{{timer}} = new createTimer({{timer}}, "00:00:00", "Timer Name")
+</script>
 {% endblock %}

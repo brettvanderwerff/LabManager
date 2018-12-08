@@ -1,6 +1,6 @@
 // Timer Class
 
-function createTimer(number) {
+function createTimer(number, init_time, init_name) {
     this.running = false
     this.entered_digits = 0
     this.alarm = new Audio("/static/audio/alarm.mp3")
@@ -8,6 +8,8 @@ function createTimer(number) {
     this.display_element = "timer" + number + "-display"
     this.name_text_element =  "name" + number + "-text"
     this.timer_name_element = "timer" + number + "-name"
+    document.getElementById(this.display_element).innerHTML = init_time
+    document.getElementById(this.timer_name_element).innerHTML = init_name
 
     this.inputNumber = function(number) {
         if (this.running == true) {

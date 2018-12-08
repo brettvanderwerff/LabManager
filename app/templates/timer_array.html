@@ -1,14 +1,7 @@
 {% extends "base.html" %}
 
 {% block content %}
-<script>
-{% for row in grid_list %}
-{% for timer in row %}
-timer{{timer}} = new createTimer({{timer}})
-{% endfor %}
-{% endfor %}
 
-</script>
 
 <div class="container-fluid">
     {% for row in grid_list %}
@@ -16,26 +9,26 @@ timer{{timer}} = new createTimer({{timer}})
         {% for timer in row %}
         <div class="col-sm-4 mt-5">
             <div id="timer-container">
-                <div id="timer{{timer}}-name">Timer Name</div>
-                <div id="timer{{timer}}-display">00:00:00</div>
-                <button id="button-7" onclick="timer{{timer}}.inputNumber(7)">7</button>
-                <button id="button-8" onclick="timer{{timer}}.inputNumber(8)">8</button>
-                <button id="button-9" onclick="timer{{timer}}.inputNumber(9)">9</button>
-                <button id="button-4" onclick="timer{{timer}}.inputNumber(4)">4</button>
-                <button id="button-5" onclick="timer{{timer}}.inputNumber(5)">5</button>
-                <button id="button-6" onclick="timer{{timer}}.inputNumber(6)">6</button>
-                <button id="button-1" onclick="timer{{timer}}.inputNumber(1)">1</button>
-                <button id="button-2" onclick="timer{{timer}}.inputNumber(2)">2</button>
-                <button id="button-3" onclick="timer{{timer}}.inputNumber(3)">3</button>
-                <button id="button-0" onclick="timer{{timer}}.inputNumber(0)">0</button>
-                <button id="clear" onclick="timer{{timer}}.clearDisplay()">Clear</button>
-                <button id="start" onclick="timer{{timer}}.startTimer()">Start</button>
-                <button class="wide-item" id="stop" onclick="timer{{timer}}.stopTimer()">Stop</button>
+                <div id="timer{{ loop.index }}-name"></div>
+                <div id="timer{{ loop.index }}-display"></div>
+                <button id="button-7" onclick="timer{{ loop.index }}.inputNumber(7)">7</button>
+                <button id="button-8" onclick="timer{{ loop.index }}.inputNumber(8)">8</button>
+                <button id="button-9" onclick="timer{{ loop.index }}.inputNumber(9)">9</button>
+                <button id="button-4" onclick="timer{{ loop.index }}.inputNumber(4)">4</button>
+                <button id="button-5" onclick="timer{{ loop.index }}.inputNumber(5)">5</button>
+                <button id="button-6" onclick="timer{{ loop.index }}.inputNumber(6)">6</button>
+                <button id="button-1" onclick="timer{{ loop.index }}.inputNumber(1)">1</button>
+                <button id="button-2" onclick="timer{{ loop.index }}.inputNumber(2)">2</button>
+                <button id="button-3" onclick="timer{{ loop.index }}.inputNumber(3)">3</button>
+                <button id="button-0" onclick="timer{{ loop.index }}.inputNumber(0)">0</button>
+                <button id="clear" onclick="timer{{ loop.index }}.clearDisplay()">Clear</button>
+                <button id="start" onclick="timer{{ loop.index }}.startTimer()">Start</button>
+                <button class="wide-item" id="stop" onclick="timer{{ loop.index }}.stopTimer()">Stop</button>
                 <div class="wide-item">
                     <form id="name-form" autocomplete="off">
-                        <input id="name{{timer}}-text" type="text" onfocus="this.value=''"
+                        <input id="name{{ loop.index }}-text" type="text" onfocus="this.value=''"
                                value="Enter your timer name here...">
-                        <button type="button" id="'submit-button" onclick="timer{{timer}}.updateName()">Submit Timer
+                        <button type="button" id="'submit-button" onclick="timer{{ loop.index }}.updateName()">Submit Timer
                             Name
                         </button>
                     </form>
@@ -47,4 +40,12 @@ timer{{timer}} = new createTimer({{timer}})
     {% endfor %}
 
 </div>
+<script>
+{% for row in grid_list %}
+{% for timer in row %}
+timer{{ loop.index }} = new createTimer({{ loop.index }}, "{{ timer.hours }}:{{ timer.minutes }}:{{ timer.seconds }}" , "{{ timer.name }}")
+{% endfor %}
+{% endfor %}
+
+</script>
 {% endblock %}

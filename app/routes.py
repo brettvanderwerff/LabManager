@@ -1,6 +1,6 @@
 from flask import render_template, redirect, url_for, flash
 from app import app, db, login_manager
-from app.forms import RegisterForm, LoginForm, SelectTimers, SetUpTimers
+from app.forms import RegisterForm, LoginForm, SelectTimers, SetUpTimers, MyTimers
 from app.models import User, Configuration, Timer
 from werkzeug.security import generate_password_hash, check_password_hash
 from flask_login import login_user, login_required, current_user, logout_user
@@ -40,20 +40,22 @@ def quick_timer():
     return render_template('quick_timer.html', timer=1, logged_in=current_user.is_authenticated)
 
 
-@app.route('/quick_timer_array', methods=['GET', 'POST'])
-def quick_timer_array():
+@app.route('/timer_array_form', methods=['GET', 'POST'])
+def timer_array_form():
     form = SelectTimers()
     if form.validate_on_submit():
         return redirect(url_for('timer_array', number_timers = form.selector.data))
-    return render_template('quick_timer_array.html', form=form, logged_in=current_user.is_authenticated)
+    return render_template('timer_array_form.html', form=form, logged_in=current_user.is_authenticated)
 
 
-@app.route('/timer_array/<number_timers>')
-def timer_array(number_timers):
-    number_timers = [i for i in range(int(number_timers))]
+@app.route('/timer_array/<configuration>')
+def timer_array(configuration):
+    user_id = current_user.get_id()
+    configuration = Configuration.query.filter_by(name=configuration, user_id=user_id).first()
+    timers = Timer.query.filter_by(configuration_id=configuration.id).all()
     timers_per_row = 3
-    grid_list = [number_timers[i * timers_per_row:(i + 1) * timers_per_row] for i in range((len(number_timers) + timers_per_row - 1) // timers_per_row)]
-    return render_template('timer_array.html', grid_list=grid_list, logged_in=current_user.is_authenticated)
+    grid_list = [timers[i * timers_per_row:(i + 1) * timers_per_row] for i in range((len(timers) + timers_per_row - 1) // timers_per_row)]
+    return render_template('timer_array.html', grid_list=grid_list, logged_in=current_user.is_authenticated, timers=timers)
 
 @app.route('/register', methods=['GET', 'POST'])
 def register():
@@ -129,7 +131,7 @@ def set_up_timers_form(number_timers):
                 db.session.add(timer)
                 db.session.commit()
 
-            return redirect(url_for('my_timers'))
+            return redirect(url_for('timer_array', configuration=configuration.name))
     return render_template('set_up_timers_form.html',
                            logged_in=current_user.is_authenticated,
                            form=form, timer=timer,
@@ -143,11 +145,16 @@ def logout():
     flash('Successfully logged out')
     return redirect(url_for('index'))
 
-@app.route('/my_timers')
+@app.route('/my_timers', methods = ['GET', 'POST'])
 def my_timers():
     user_id = current_user.get_id()
     configurations = Configuration.query.filter_by(user_id=user_id).all()
-    return render_template('my_timers.html', configurations=configurations, logged_in=current_user.is_authenticated)
+    form = MyTimers()
+
+    if form.validate_on_submit():
+        print('success')
+
+    return render_template('my_timers.html', configurations=configurations, logged_in=current_user.is_authenticated, form=form)
 
 
 

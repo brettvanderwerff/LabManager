@@ -4,7 +4,8 @@
     <div class="row h-100 justify-content-center align-items-center">
         <div class="col-sm-7">
             <div class="card card-body">
-                <form action="/action_page.php">
+                <form action="" method="post" role="form" novalidate>
+                        {{ form.csrf_token }}
                     <div class="form-group">
                         <label for="sel2">Select your configuraiton (To Do make error if person selects more than one</label>
                         <select multiple class="form-control" id="sel2" name="sellist2">
@@ -13,7 +14,7 @@
                             {% endfor %}
                         </select>
                     </div>
-                    <button type="submit" class="btn btn-primary">Run Configuration</button>
+                    {{ form.submit(type="submit", class="btn btn-lg btn-primary btn-block", value=form.submit.label.text)|safe }}
                 </form>
             </div>
         </div>
