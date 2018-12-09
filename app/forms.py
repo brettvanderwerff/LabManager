@@ -6,14 +6,14 @@ from app.models import Configuration
 from flask_login import current_user
 
 class RegisterForm(FlaskForm):
-    email = StringField('Email', validators=[DataRequired()])
+    username = StringField('username', validators=[DataRequired()])
     password = PasswordField('Password', validators=[DataRequired(), EqualTo('confirm', message='Passwords must match')])
     confirm = PasswordField('Confirm Password')
     submit = SubmitField('Sign Me Up')
     recaptcha = RecaptchaField()
 
 class LoginForm(FlaskForm):
-    email = StringField('Email', validators=[DataRequired()])
+    username = StringField('username', validators=[DataRequired()])
     password = PasswordField('Password', validators=[DataRequired()])
     submit = SubmitField('Log Me In')
 
