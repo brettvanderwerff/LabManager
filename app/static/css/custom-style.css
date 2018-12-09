@@ -45,13 +45,12 @@ opacity: 0.9;
 
 }
 
-#name-form {
+[id^="timer"][id$="-radio-select"] {
 	display: grid;
-	grid-template-columns: 100%;
-	grid-gap: .8em;
+	grid-template-columns: 25% 25% 25% 25%;
 	background: #ebebeb;
-	padding: 1.2em;
 	border-radius: 0 0 7px 7px;
+	padding: 10px;
 
 }
 

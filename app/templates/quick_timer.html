@@ -4,8 +4,8 @@
 <div class="container h-100">
     <div class="row h-100 justify-content-center align-items-center">
         <div class="col-sm-6">
-        <div id="timer-container">
-            <div id="timer{{timer}}-name">Timer Name</div>
+            <div id="timer-container">
+                <div id="timer{{timer}}-name"></div>
                 <div id="timer{{timer}}-display"></div>
                 <button id="button-7" onclick="timer{{timer}}.inputNumber(7)">7</button>
                 <button id="button-8" onclick="timer{{timer}}.inputNumber(8)">8</button>
@@ -21,17 +21,25 @@
                 <button id="start" onclick="timer{{timer}}.startTimer()">Start</button>
                 <button class="wide-item" id="stop" onclick="timer{{timer}}.stopTimer()">Stop</button>
                 <div class="wide-item">
-                    <form id="name-form" autocomplete="off">
-                        <input id="name{{timer}}-text" type="text" onfocus="this.value=''" value="Enter your timer name here...">
-                        <button type="button" id="'submit-button" onclick="timer{{timer}}.updateName()">Submit Timer Name
-                        </button>
+                    <form id="timer1-radio-select">
+
+                        <div><input type="radio" name="timer{{ timer }}-alarm" value="alarm1" checked>Alarm 1</div>
+                        <div><input type="radio" name="timer{{ timer }}-alarm" value="alarm2">Alarm 2</div>
+                        <div><input type="radio" name="timer{{ timer }}-alarm" value="alarm3">Alarm 3</div>
+                        <div><input type="radio" name="timer{{ timer }}-alarm" value="alarm4">Alarm 4</div>
                     </form>
+
+
                 </div>
             </div>
         </div>
     </div>
 </div>
 <script>
-timer{{timer}} = new createTimer({{timer}}, "00:00:00", "Timer Name")
+timer{{timer}} = new createTimer({{timer}}, "00:00:00", "Quick Timer")
+
+
+
+
 </script>
 {% endblock %}

@@ -25,12 +25,11 @@
                 <button id="start" onclick="timer{{ loop.index }}.startTimer()">Start</button>
                 <button class="wide-item" id="stop" onclick="timer{{ loop.index }}.stopTimer()">Stop</button>
                 <div class="wide-item">
-                    <form id="name-form" autocomplete="off">
-                        <input id="name{{ loop.index }}-text" type="text" onfocus="this.value=''"
-                               value="Enter your timer name here...">
-                        <button type="button" id="'submit-button" onclick="timer{{ loop.index }}.updateName()">Submit Timer
-                            Name
-                        </button>
+                    <form id="timer1-radio-select">
+                        <div><input type="radio" name="timer{{ loop.index }}-alarm" value="alarm1" checked>Alarm 1</div>
+                        <div><input type="radio" name="timer{{ loop.index }}-alarm" value="alarm2">Alarm 2</div>
+                        <div><input type="radio" name="timer{{ loop.index }}-alarm" value="alarm3">Alarm 3</div>
+                        <div><input type="radio" name="timer{{ loop.index }}-alarm" value="alarm4">Alarm 4</div>
                     </form>
                 </div>
             </div>

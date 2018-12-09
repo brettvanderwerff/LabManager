@@ -11,7 +11,6 @@ from wtforms.validators import DataRequired
 def load_user(id):
     return User.query.get(int(id))
 
-
 @app.route('/')
 @app.route('/index')
 def index():
@@ -84,6 +83,7 @@ def register():
 
 
 @app.route('/set_up_timers', methods=['GET', 'POST'])
+@login_required
 def set_up_timers():
     form = SelectTimers()
     if form.validate_on_submit():
@@ -92,6 +92,7 @@ def set_up_timers():
 
 
 @app.route('/set_up_timers_form/<number_timers>', methods=['GET', 'POST'])
+@login_required
 @limiter.limit('50 per day')
 def set_up_timers_form(number_timers):
     error = None
@@ -157,6 +158,7 @@ def logout():
 
 
 @app.route('/my_timers', methods=['GET', 'POST'])
+@login_required
 @limiter.limit('100 per day')
 def my_timers():
     error = None

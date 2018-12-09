@@ -3,7 +3,7 @@
 function createTimer(number, init_time, init_name) {
     this.running = false
     this.entered_digits = 0
-    this.alarm = new Audio("/static/audio/alarm1.mp3")
+    this.alarm = null
     this.i = 1
     this.display_element = "timer" + number + "-display"
     this.name_text_element =  "name" + number + "-text"
@@ -69,6 +69,11 @@ function createTimer(number, init_time, init_name) {
     }
     let timeDelta = stopTime - Date.now()
     if (timeDelta <= 0) {
+    let radio_element = 'input[name=timer' + number + '-alarm]:checked'
+    let alarm_number = document.querySelector(radio_element).value;
+    let full_alarm_path = '/static/audio/' + alarm_number + '.mp3'
+    console.log(full_alarm_path)
+    this.alarm = new Audio(full_alarm_path)
     this.alarm.play()
     return
     }
