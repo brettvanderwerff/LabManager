@@ -149,12 +149,13 @@ def logout():
 def my_timers():
     user_id = current_user.get_id()
     configurations = Configuration.query.filter_by(user_id=user_id).all()
+    len_config = len(configurations) + 1
     form = MyTimers()
 
     if form.validate_on_submit():
-        print('success')
+        return redirect(url_for('timer_array', configuration=form.select.data))
 
-    return render_template('my_timers.html', configurations=configurations, logged_in=current_user.is_authenticated, form=form)
+    return render_template('my_timers.html', len_config=len_config, logged_in=current_user.is_authenticated, form=form)
 
 
 

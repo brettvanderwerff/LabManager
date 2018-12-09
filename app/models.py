@@ -15,6 +15,9 @@ class Configuration(db.Model):
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
     timer = db.relationship('Timer', backref='configuration')
 
+    def __repr__(self):
+        return self.name
+
 class Timer(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(64), nullable=False)

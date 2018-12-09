@@ -5,16 +5,13 @@
         <div class="col-sm-7">
             <div class="card card-body">
                 <form action="" method="post" role="form" novalidate>
-                        {{ form.csrf_token }}
+                    {{ form.csrf_token }}
                     <div class="form-group">
-                        <label for="sel2">Select your configuraiton (To Do make error if person selects more than one</label>
-                        <select multiple class="form-control" id="sel2" name="sellist2">
-                            {% for configuration in configurations %}
-                            <option>{{configuration.name}}</option>
-                            {% endfor %}
-                        </select>
+                        <label for="select">Select a Configuration to Run</label>
+                        {{ form.select(class="form-control", size=len_config) }}
                     </div>
-                    {{ form.submit(type="submit", class="btn btn-lg btn-primary btn-block", value=form.submit.label.text)|safe }}
+                    {{ form.submit(type="submit", class="btn btn-lg btn-primary btn-block",
+                    value=form.submit.label.text)|safe }}
                 </form>
             </div>
         </div>

@@ -3,7 +3,7 @@
 function createTimer(number, init_time, init_name) {
     this.running = false
     this.entered_digits = 0
-    this.alarm = new Audio("/static/audio/alarm.mp3")
+    this.alarm = new Audio("/static/audio/alarm1.mp3")
     this.i = 1
     this.display_element = "timer" + number + "-display"
     this.name_text_element =  "name" + number + "-text"
