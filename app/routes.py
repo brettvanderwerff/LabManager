@@ -5,7 +5,7 @@ from app.models import User, Configuration, Timer
 from werkzeug.security import generate_password_hash, check_password_hash
 from flask_login import login_user, login_required, current_user, logout_user
 from wtforms import StringField
-from wtforms.validators import DataRequired
+from wtforms.validators import DataRequired, Regexp
 
 @login_manager.user_loader
 def load_user(id):
@@ -15,7 +15,6 @@ def load_user(id):
 @app.route('/index')
 def index():
     return render_template('index.html', logged_in=current_user.is_authenticated)
-
 
 @app.route('/login', methods=['GET', 'POST'])
 def login():
@@ -35,12 +34,10 @@ def login():
 
     return render_template('login.html', form=form, error=error, logged_in=current_user.is_authenticated)
 
-
 @app.route('/quick_timer')
 @limiter.limit('100 per day')
 def quick_timer():
     return render_template('quick_timer.html', timer=1, logged_in=current_user.is_authenticated)
-
 
 @app.route('/timer_array_form', methods=['GET', 'POST'])
 def timer_array_form():
@@ -48,7 +45,6 @@ def timer_array_form():
     if form.validate_on_submit():
         return redirect(url_for('timer_array', number_timers=form.selector.data))
     return render_template('timer_array_form.html', form=form, logged_in=current_user.is_authenticated)
-
 
 @app.route('/timer_array/<configuration>')
 def timer_array(configuration):
@@ -58,10 +54,8 @@ def timer_array(configuration):
     timers_per_row = 3
     grid_list = [timers[i * timers_per_row:(i + 1) * timers_per_row] for i in
                  range((len(timers) + timers_per_row - 1) // timers_per_row)]
-    print(grid_list)
     return render_template('timer_array.html', grid_list=grid_list, logged_in=current_user.is_authenticated,
                            timers=timers)
-
 
 @app.route('/register', methods=['GET', 'POST'])
 @limiter.limit('10 per day')
@@ -82,7 +76,6 @@ def register():
             return redirect(url_for('index'))
     return render_template('register.html', form=form, error=error, logged_in=current_user.is_authenticated)
 
-
 @app.route('/set_up_timers', methods=['GET', 'POST'])
 @login_required
 def set_up_timers():
@@ -91,26 +84,32 @@ def set_up_timers():
         return redirect(url_for('set_up_timers_form', number_timers=form.selector.data))
     return render_template('set_up_timers.html', logged_in=current_user.is_authenticated, form=form)
 
-
 @app.route('/set_up_timers_form/<number_timers>', methods=['GET', 'POST'])
 @login_required
 @limiter.limit('50 per day')
 def set_up_timers_form(number_timers):
     error = None
     number_timers = int(number_timers)
-    attributes = ['name', 'hours', 'minutes', 'seconds']
+    attribute_dict = {'name': None, 'hours': None, 'minutes': None, 'seconds': None}
 
     for timer in range(number_timers):
-        for attribute_name in attributes:
+        for attribute_name in attribute_dict:
             attribute = "timer_{}_{}".format(timer, attribute_name)
-            setattr(SetUpTimers, attribute, StringField(attribute, validators=[DataRequired()]) )
+            if attribute_name == 'name':
+                setattr(SetUpTimers, attribute, StringField(attribute, validators=[DataRequired()]))
+            else:
+                setattr(SetUpTimers,
+                        attribute,
+                        StringField(attribute,
+                        validators=[DataRequired(),
+                                    Regexp("^(\d?[0-9]|[0-9]0)$", message='must be whole number between 1-99')]))
 
     form = SetUpTimers()
     object_list = []
     for timer in range(number_timers):
-        form_dict = {'name': None, 'hours': None, 'minutes': None, 'seconds': None}
+        form_dict = attribute_dict.copy()
 
-        for attribute_name in attributes:
+        for attribute_name in attribute_dict:
             attribute = "timer_{}_{}".format(timer, attribute_name)
             form_dict[attribute_name] = getattr(form, attribute)
 
@@ -126,12 +125,15 @@ def set_up_timers_form(number_timers):
             db.session.add(configuration)
             db.session.commit()
 
+            arg_dict = attribute_dict.copy()
             for form_dict in object_list:
-                name = getattr(form_dict['name'], "data")
-                hours = getattr(form_dict['hours'], "data")
-                minutes = getattr(form_dict['minutes'], "data")
-                seconds = getattr(form_dict['seconds'], "data")
-                timer = Timer(name=name, hours=hours, minutes=minutes, seconds=seconds, configuration=configuration)
+                for key in arg_dict:
+                    arg_dict[key] = getattr(form_dict[key], "data")
+                    if not key == 'name':
+                        if len(arg_dict[key]) == 1:
+                            arg_dict[key] = "0" + arg_dict[key]
+                timer = Timer(name=arg_dict['name'], hours=arg_dict['hours'],
+                              minutes=arg_dict['minutes'], seconds=arg_dict['seconds'], configuration=configuration)
                 db.session.add(timer)
                 db.session.commit()
 
@@ -141,6 +143,7 @@ def set_up_timers_form(number_timers):
                            form=form, timer=timer,
                            object_list=object_list,
                            error=error)
+
 
 @app.route('/logout')
 @login_required
@@ -168,7 +171,7 @@ def my_timers():
     return render_template('my_timers.html', len_config=len_config, logged_in=current_user.is_authenticated, form=form,
                            error=error)
 
+
 @app.errorhandler(429)
 def ratelimit_handler(e):
     return render_template('429.html')
-

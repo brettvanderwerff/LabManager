@@ -11,7 +11,8 @@
                     <fieldset>
                         {{ render_field(form.username, placeholder=form.username.label.text) }}
                         {{ render_field(form.password, placeholder=form.password.label.text) }}
-                        {{ form.submit(type="submit", class="btn btn-lg btn-primary btn-block", value=form.submit.label.text)|safe }}
+                        {{ form.submit(type="submit", class="btn btn-lg btn-primary btn-block",
+                        value=form.submit.label.text)|safe }}
                         {% if error %}
                         <div class="alert alert-danger">
                             <strong>Error: </strong> {{ error }}
