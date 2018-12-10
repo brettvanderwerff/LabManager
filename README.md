@@ -41,7 +41,7 @@ Users can always reload previously made timer configurations from the database b
 
 ![picture_alt](/readme_images/my_timers.png)
 
-##Extras
+## Extras
 
 Timer Manager implements strategies to limit abuse by implementing Google reCaptcha in the registration form. The number
 of requests clients make are stored using Redis and caps on requests are set with [Flask limiter](https://flask-limiter.readthedocs.io/en/stable/).
