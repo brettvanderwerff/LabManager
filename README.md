@@ -6,5 +6,7 @@ for deployment but does have some unpolished functionality now and can be set up
 
 1. Clone the repo and navigate to the top level folder.
 2. Install dependencies by running `$pip install requirements.txt`
-3. set the Flask app enviornment variable `$export FLASK_APP=timemanager.py`
-4. Run the app by entering: `$flask run`
+3. Run the setup file: `$bash setup.sh` to set up Redis
+4. Setup up flask recaptcha w/ google recaptcha (https://www.youtube.com/watch?v=VrH0eH4nE-c)
+5. Set the Flask app enviornment variable `$export FLASK_APP=timemanager.py`
+6. Run the app by entering: `$flask run`

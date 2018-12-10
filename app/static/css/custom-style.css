@@ -34,7 +34,7 @@ opacity: 0.9;
   text-align: center;
   grid-column-start: 1;
   grid-column-end: 4;
-  font-size: 30px;
+  font-size: 60px;
 }
 
 [id^="timer"][id$="-name"] {

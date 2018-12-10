@@ -58,6 +58,7 @@ def timer_array(configuration):
     timers_per_row = 3
     grid_list = [timers[i * timers_per_row:(i + 1) * timers_per_row] for i in
                  range((len(timers) + timers_per_row - 1) // timers_per_row)]
+    print(grid_list)
     return render_template('timer_array.html', grid_list=grid_list, logged_in=current_user.is_authenticated,
                            timers=timers)
 
@@ -97,28 +98,21 @@ def set_up_timers():
 def set_up_timers_form(number_timers):
     error = None
     number_timers = int(number_timers)
+    attributes = ['name', 'hours', 'minutes', 'seconds']
+
     for timer in range(number_timers):
-        name = "timer_{}_name".format(timer)
-        hours = "timer_{}_hours".format(timer)
-        minutes = "timer_{}_minutes".format(timer)
-        seconds = "timer_{}_seconds".format(timer)
-        setattr(SetUpTimers, name, StringField(name, validators=[DataRequired()]))
-        setattr(SetUpTimers, hours, StringField(hours, validators=[DataRequired()]))
-        setattr(SetUpTimers, minutes, StringField(minutes, validators=[DataRequired()]))
-        setattr(SetUpTimers, seconds, StringField(seconds, validators=[DataRequired()]))
+        for attribute_name in attributes:
+            attribute = "timer_{}_{}".format(timer, attribute_name)
+            setattr(SetUpTimers, attribute, StringField(attribute, validators=[DataRequired()]) )
+
     form = SetUpTimers()
     object_list = []
     for timer in range(number_timers):
         form_dict = {'name': None, 'hours': None, 'minutes': None, 'seconds': None}
 
-        name = "timer_{}_name".format(timer)
-        hours = "timer_{}_hours".format(timer)
-        minutes = "timer_{}_minutes".format(timer)
-        seconds = "timer_{}_seconds".format(timer)
-        form_dict['name'] = getattr(form, name)
-        form_dict['hours'] = getattr(form, hours)
-        form_dict['minutes'] = getattr(form, minutes)
-        form_dict['seconds'] = getattr(form, seconds)
+        for attribute_name in attributes:
+            attribute = "timer_{}_{}".format(timer, attribute_name)
+            form_dict[attribute_name] = getattr(form, attribute)
 
         object_list.append(form_dict)
 
@@ -148,7 +142,6 @@ def set_up_timers_form(number_timers):
                            object_list=object_list,
                            error=error)
 
-
 @app.route('/logout')
 @login_required
 def logout():
@@ -174,4 +167,8 @@ def my_timers():
 
     return render_template('my_timers.html', len_config=len_config, logged_in=current_user.is_authenticated, form=form,
                            error=error)
+
+@app.errorhandler(429)
+def ratelimit_handler(e):
+    return render_template('429.html')
 

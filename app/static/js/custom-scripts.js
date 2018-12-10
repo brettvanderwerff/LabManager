@@ -72,7 +72,7 @@ function createTimer(number, init_time, init_name) {
     let radio_element = 'input[name=timer' + number + '-alarm]:checked'
     let alarm_number = document.querySelector(radio_element).value;
     let full_alarm_path = '/static/audio/' + alarm_number + '.mp3'
-    console.log(full_alarm_path)
+    document.getElementById(this.display_element).style.color = "red"
     this.alarm = new Audio(full_alarm_path)
     this.alarm.play()
     return

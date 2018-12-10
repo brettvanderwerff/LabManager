@@ -4,32 +4,36 @@
 
 
 <div class="container-fluid">
+    {% set timer_count = [0] %}
     {% for row in grid_list %}
     <div class="row">
         {% for timer in row %}
+        {% if timer_count.append(timer_count.pop() + 1) %}
+        {% endif %}
         <div class="col-sm-4 mt-5">
             <div id="timer-container">
-                <div id="timer{{ loop.index }}-name"></div>
-                <div id="timer{{ loop.index }}-display"></div>
-                <button id="button-7" onclick="timer{{ loop.index }}.inputNumber(7)">7</button>
-                <button id="button-8" onclick="timer{{ loop.index }}.inputNumber(8)">8</button>
-                <button id="button-9" onclick="timer{{ loop.index }}.inputNumber(9)">9</button>
-                <button id="button-4" onclick="timer{{ loop.index }}.inputNumber(4)">4</button>
-                <button id="button-5" onclick="timer{{ loop.index }}.inputNumber(5)">5</button>
-                <button id="button-6" onclick="timer{{ loop.index }}.inputNumber(6)">6</button>
-                <button id="button-1" onclick="timer{{ loop.index }}.inputNumber(1)">1</button>
-                <button id="button-2" onclick="timer{{ loop.index }}.inputNumber(2)">2</button>
-                <button id="button-3" onclick="timer{{ loop.index }}.inputNumber(3)">3</button>
-                <button id="button-0" onclick="timer{{ loop.index }}.inputNumber(0)">0</button>
-                <button id="clear" onclick="timer{{ loop.index }}.clearDisplay()">Clear</button>
-                <button id="start" onclick="timer{{ loop.index }}.startTimer()">Start</button>
-                <button class="wide-item" id="stop" onclick="timer{{ loop.index }}.stopTimer()">Stop</button>
+                <div id="timer{{ timer_count[0] }}-name"></div>
+                <div id="timer{{ timer_count[0] }}-display"></div>
+                <button id="button-7" onclick="timer{{ timer_count[0] }}.inputNumber(7)">7</button>
+                <button id="button-8" onclick="timer{{ timer_count[0] }}.inputNumber(8)">8</button>
+                <button id="button-9" onclick="timer{{ timer_count[0] }}.inputNumber(9)">9</button>
+                <button id="button-4" onclick="timer{{ timer_count[0] }}.inputNumber(4)">4</button>
+                <button id="button-5" onclick="timer{{ timer_count[0] }}.inputNumber(5)">5</button>
+                <button id="button-6" onclick="timer{{ timer_count[0] }}.inputNumber(6)">6</button>
+                <button id="button-1" onclick="timer{{ timer_count[0] }}.inputNumber(1)">1</button>
+                <button id="button-2" onclick="timer{{ timer_count[0] }}.inputNumber(2)">2</button>
+                <button id="button-3" onclick="timer{{ timer_count[0] }}.inputNumber(3)">3</button>
+                <button id="button-0" onclick="timer{{ timer_count[0] }}.inputNumber(0)">0</button>
+                <button id="clear" onclick="timer{{ timer_count[0] }}.clearDisplay()">Clear</button>
+                <button id="start" onclick="timer{{ timer_count[0] }}.startTimer()">Start</button>
+                <button class="wide-item" id="stop" onclick="timer{{ timer_count[0] }}.stopTimer()">Stop</button>
                 <div class="wide-item">
-                    <form id="timer1-radio-select">
-                        <div><input type="radio" name="timer{{ loop.index }}-alarm" value="alarm1" checked>Alarm 1</div>
-                        <div><input type="radio" name="timer{{ loop.index }}-alarm" value="alarm2">Alarm 2</div>
-                        <div><input type="radio" name="timer{{ loop.index }}-alarm" value="alarm3">Alarm 3</div>
-                        <div><input type="radio" name="timer{{ loop.index }}-alarm" value="alarm4">Alarm 4</div>
+                    <form id="timer{{ timer_count[0] }}-radio-select">
+                        <div><input type="radio" name="timer{{ timer_count[0] }}-alarm" value="alarm1" checked>Alarm 1
+                        </div>
+                        <div><input type="radio" name="timer{{ timer_count[0] }}-alarm" value="alarm2">Alarm 2</div>
+                        <div><input type="radio" name="timer{{ timer_count[0] }}-alarm" value="alarm3">Alarm 3</div>
+                        <div><input type="radio" name="timer{{ timer_count[0] }}-alarm" value="alarm4">Alarm 4</div>
                     </form>
                 </div>
             </div>
@@ -40,11 +44,15 @@
 
 </div>
 <script>
+{% set timer_count = [0] %}
 {% for row in grid_list %}
 {% for timer in row %}
-timer{{ loop.index }} = new createTimer({{ loop.index }}, "{{ timer.hours }}:{{ timer.minutes }}:{{ timer.seconds }}" , "{{ timer.name }}")
+{% if timer_count.append(timer_count.pop() + 1) %}
+{% endif %}
+timer{{ timer_count[0] }} = new createTimer({{ timer_count[0] }}, "{{ timer.hours }}:{{ timer.minutes }}:{{ timer.seconds }}" , "{{ timer.name }}")
 {% endfor %}
 {% endfor %}
+
 
 </script>
 {% endblock %}
