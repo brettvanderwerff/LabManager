@@ -3,7 +3,7 @@
 A website for managing timers during biological experiments. Can be set up on linux by following these steps: 
 
 1. Clone the repo and navigate to the top level folder.
-2. Install dependencies by running `$pip install requirements.txt`
+2. Install dependencies by running `$pip install -r requirements.txt`
 3. Run the setup file: `$bash setup.sh` to set up Redis
 4. Setup up flask recaptcha w/ google recaptcha (https://www.youtube.com/watch?v=VrH0eH4nE-c)
 5. Add public and private recaptcha key to config.py
