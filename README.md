@@ -1,6 +1,7 @@
 # TimeManager
 
-A website for managing timers during biological experiments. Can be set up on linux by following these steps: 
+A website for managing timers during biological experiments. I made it just to get more experience with CSS, Javascript, Bootstrap, SQLalchemy, and managing a user base.
+ Can be set up on linux by following these steps: 
 
 1. Clone the repo and navigate to the top level folder.
 2. Install dependencies by running `$pip install -r requirements.txt`
